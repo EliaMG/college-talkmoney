@@ -1,5 +1,5 @@
-# college-talkmoney
-###Trello Link: <https://trello.com/b/S3Mmu8If/college-is>
+# College - Let's Talk Money
+####Trello Link: <https://trello.com/b/S3Mmu8If/college-is>
 
 ###Problem Statement:
 _A clear, concise statement describing the problem your project will solve._  
@@ -14,15 +14,15 @@ your application’s competition - what alternatives are already out there (comp
     - <http://www.startclass.com/>
     - <https://collegeabacus.org/>
 - Major news outlets have done their own analyses of the dataset, e.g.
-<http://www.nytimes.com/2015/09/14/upshot/gaps-in-alumni-earnings-stand-out-in-release-of-college-data.html>
-<http://www.npr.org/sections/money/2015/09/18/440973097/obama-wont-rate-colleges-so-we-did>
-<https://projects.propublica.org/colleges/>
+  - <http://www.nytimes.com/2015/09/14/upshot/gaps-in-alumni-earnings-stand-out-in-release-of-college-data.html>
+  - <http://www.npr.org/sections/money/2015/09/18/440973097/obama-wont-rate-colleges-so-we-did>
+  - <https://projects.propublica.org/colleges/>
 
-  - My product is differentiated by:
-    - Breaking down data by family income (available in the raw dataset, but fairly obsfuscated within the website)
-    - Providing if/then scenarios (hopefully side-by-side comparison)
-    - User interactivity
-    - Clear, concise _this is why this matters to you_  
+- My product is differentiated by:
+  - Breaking down data by family income (available in the raw dataset, but fairly obsfuscated within the website)
+  - Providing if/then scenarios (hopefully side-by-side comparison)
+  - User interactivity
+  - Clear, concise _this is why this matters to you_  
 
 ###User Personas:
 _A summary of your main target user group(s). What are their key characteristics? How do those characteristics factor into project/app/idea?_  
