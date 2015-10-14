@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
 
+  controller :data do
+    get '/pricegraph', action: 'price_graph'
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
