@@ -21,10 +21,9 @@ $(function() {
   var width = 420,
       barHeight = 20;
 
-  console.log(data);
   var x = d3.scale.linear()
-      .domain([0, d3.max(data)])
-      .range([0, width]);
+      .domain([ 0, data[data.length - 1].net_price ])
+      .range([ 0, width ]);
 
   var chart = d3.select(".bar-chart")
       .attr("width", width)
@@ -35,11 +34,11 @@ $(function() {
     .enter().append("g")
       .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
   bar.append("rect")
-      .attr("width", x)
+      .attr("width", function(d) { return x(d.net_price); })
       .attr("height", barHeight - 1);
 
   bar.append("text")
-      .attr("x", function(d) { return x(d) - 3; })
+      .attr("x", function(d) { return x(d.net_price) - 3; })
       .attr("y", barHeight / 2)
       .attr("dy", ".35em")
       .text(function(d) { return d.name; });
