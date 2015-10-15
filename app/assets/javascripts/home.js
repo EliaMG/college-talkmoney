@@ -1,15 +1,32 @@
 $(function() {
-  console.log("Hello");
-  var data = [4, 8, 15, 16, 23, 42];
+  $(".school-select").click(function(event) {
+    var url = "/pricegraph";
+    dataCall(event, url);
+  });
 
+  function dataCall(event, url) {
+    event.preventDefault();
+    $(".bar-chart").empty();
+    $.ajax(url, {
+      type: "get",
+      success: function (data) {
+      makeChart(data);
+    }
+    });
+  }
+
+  function makeChart(data) {
+
+  // var data = [4, 8, 15, 16, 23, 42];
   var width = 420,
       barHeight = 20;
 
+  console.log(data);
   var x = d3.scale.linear()
       .domain([0, d3.max(data)])
       .range([0, width]);
 
-  var chart = d3.select(".chart")
+  var chart = d3.select(".bar-chart")
       .attr("width", width)
       .attr("height", barHeight * data.length);
 
@@ -17,7 +34,6 @@ $(function() {
       .data(data)
     .enter().append("g")
       .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-
   bar.append("rect")
       .attr("width", x)
       .attr("height", barHeight - 1);
@@ -26,5 +42,6 @@ $(function() {
       .attr("x", function(d) { return x(d) - 3; })
       .attr("y", barHeight / 2)
       .attr("dy", ".35em")
-      .text(function(d) { return d; });
+      .text(function(d) { return d.name; });
+  }
 });
