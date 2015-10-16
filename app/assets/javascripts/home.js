@@ -19,7 +19,7 @@ $(function() {
 
   var width = 420,
       barHeight = 20,
-      height = barHeight * (data.length + 1);
+      height = barHeight * (data.length + 2);
 
   var x = d3.scale.linear()
       .domain([ 0, data[data.length - 1].net_price ])
@@ -31,7 +31,8 @@ $(function() {
 
   var xAxis = d3.svg.axis()
     .scale(x)
-    .orient("bottom");
+    .orient("bottom")
+    .ticks(8);
 
   var chart = d3.select(".bar-chart")
       .attr("width", width)
@@ -40,6 +41,7 @@ $(function() {
   var bar = chart.selectAll("g")
       .data(data)
     .enter().append("g")
+      // .transition()
       .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
   bar.append("rect")
       .attr("width", function(d) { return x(d.net_price); })
@@ -47,14 +49,20 @@ $(function() {
 
 
   bar.append("text")
-      .attr("x", function(d) { return x(d.net_price) - 4; })
-      .attr("y", barHeight / 2)
-      .attr("dy", ".35em")
-      .text(function(d) { return d.name; });
+    .attr("x", function(d) { return x(d.net_price) - 4; })
+    .attr("y", barHeight / 2)
+    .attr("dy", ".35em")
+    .text(function(d) { return d.name; });
 
   chart.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0,80)")
-      .call(xAxis);
+    .attr("class", "axis")
+    .attr("transform", "translate(0,80)")
+    .call(xAxis);
+
+  chart.append("text")      // text label for the x axis
+    .attr("transform", "translate(" + (width / 2) + " ," + (height) + ")")
+    .style("text-anchor", "middle")
+    .style("font-weight", "bold")
+    .text("Net Price");
   }
 });
