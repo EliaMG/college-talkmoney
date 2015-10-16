@@ -1,4 +1,5 @@
 $(function() {
+  init();
   $(".school-select").click(function(event) {
     var url = "/pricegraph";
     dataCall(event, url);
@@ -17,42 +18,91 @@ $(function() {
 
   function makeChart(data) {
 
-  var width = 420,
-      barHeight = 20,
-      height = barHeight * (data.length + 2);
+  var w = 420,
+      barHeight = 22,
+      h = 600;
 
-  var x = d3.scale.linear()
+  var xScale = d3.scale.linear()
       .domain([ 0, data[data.length - 1].net_price ])
-      .range([ 0, width]);
+      .range([ 0, w]);
 
-  var y = d3.scale.ordinal()
+  var yScale = d3.scale.ordinal()
         .domain(d3.range(data.length))
-        .rangeBands([0, height], .2)
+        .rangeRoundBands([0, h], .1)
 
   var xAxis = d3.svg.axis()
-    .scale(x)
+    .scale(xScale)
     .orient("bottom")
-    .ticks(8);
+    .ticks(6);
 
   var chart = d3.select(".bar-chart")
-      .attr("width", width)
-      .attr("height", height);
+      // .attr("width", width)
+      // .attr("height", height);
+  var bars = chart.selectAll("rect.bar")
+    .data(data)
 
-  var bar = chart.selectAll("g")
+  bars.enter()
+      append("svg:rect")
+      .attr("class", "bar")
+
+  bars.exit()
+    .transition()
+    .duration(300)
+    .ease("exp")
+      .attr("width", 0)
+      .remove()
+
+
+  chart.selectAll("rect")
       .data(data)
-    .enter().append("g")
+      .enter()
+      .append("rect")
+      .attr("y", function(d, i) {
+        return yScale(i);
+      })
+      .attr("x", function(d) {
+        return xScale(d.net_price);
+      })
+
+      .attr("height", yScale.rangeBand())
+      .attr("width", function(d) {
+        return xScale(d.net_price);
+      });
       // .transition()
-      .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-  bar.append("rect")
-      .attr("width", function(d) { return x(d.net_price); })
-      .attr("height", barHeight - 1);
+  //     .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+  // bar.append("rect")
+  //     .attr("width", function(d) { return x(d.net_price); })
+  //     .attr("height", barHeight - 1)
+      // .on("mouseover", function(d) {
+      //
+      //    //Get this bar's x/y values, then augment for the tooltip
+      //    var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand() / 2;
+      //    var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
+      //
+      //    //Update the tooltip position and value
+      //    d3.select("#tooltip")
+      //      .style("left", xPosition + "px")
+      //      .style("top", yPosition + "px")
+      //      .select("#value")
+      //      .text(d);
+      //
+      //    //Show the tooltip
+      //    d3.select("#tooltip").classed("hidden", false);
+      //
+      //   })
+      //   .on("mouseout", function() {
+      //
+      //    //Hide the tooltip
+      //    d3.select("#tooltip").classed("hidden", true);
+      //
+      //   });
 
 
-  bar.append("text")
-    .attr("x", function(d) { return x(d.net_price) - 4; })
-    .attr("y", barHeight / 2)
-    .attr("dy", ".35em")
-    .text(function(d) { return d.name; });
+  // bar.append("text")
+  //   .attr("x", function(d) { return x(d.net_price) - 4; })
+  //   .attr("y", barHeight / 2)
+  //   .attr("dy", ".35em")
+  //   .text(function(d) { return d.name; });
 
   chart.append("g")
     .attr("class", "axis")
@@ -66,3 +116,40 @@ $(function() {
     .text("Net Price");
   }
 });
+
+function init()
+{
+
+    //setup the svg
+    var svg = d3.select("#svg")
+        .attr("width", w+100)
+        .attr("height", h+100)
+    svg.append("svg:rect")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("stroke", "#000")
+        .attr("fill", "none")
+
+    svg.append("svg:g")
+        .attr("id", "barchart")
+        .attr("transform", "translate(50,50)")
+
+    //setup our ui
+    d3.select("#data1")
+        .on("click", function(d,i) {
+            bars(data1)
+        })
+    d3.select("#data2")
+        .on("click", function(d,i) {
+            bars(data2)
+        })
+    d3.select("#random")
+        .on("click", function(d,i) {
+            num = document.getElementById("num").value
+            bars(random(num))
+        })
+
+
+    //make the bars
+    bars(data1)
+}
