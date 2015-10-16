@@ -1,6 +1,8 @@
 require 'csv'
 
- CSV.foreach("db/seedscleaned.csv", headers: true) do |row|
+# h/t to http://blog.andreamostosi.name/2013/06/encoding-csv-and-ruby/ for the encoding line
+
+ CSV.foreach("db/seedscleaned.csv", encoding: "iso-8859-1:UTF-8", headers: true) do |row|
 
    School.create(
      name: row[0],
