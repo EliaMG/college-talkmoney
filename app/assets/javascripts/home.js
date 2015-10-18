@@ -1,4 +1,5 @@
 $(function() {
+  $('input.tokenize').tokenfield();
   $(".school-select").click(function(event) {
     var url = "/pricegraph";
     dataCall(event, url);

@@ -20,12 +20,15 @@
     <% end %>
   </div>
 </div>
+    <!-- <%= button_tag "Compare Two-Year Schools", class: "2-year" %>
+    <%= button_tag "Compare Four-Year Schools", class: "4-year" %> -->
 
 <div class="row">
   <div class="col-md-4">
-    <%= button_tag "Compare Two-Year Schools", class: "2-year" %>
-    <%= button_tag "Compare Four-Year Schools", class: "4-year" %>
-    <%= button_to "Two-Year", year_path, method: :get, params: {year: 2}, class: "btn btn-info" %>
+    <%= button_to "Compare Two-Year Schools", year_path, method: :get, params: {year: 2}, class: "btn btn-info 2-year" %>
+    <%= button_to "Compare Four-Year Schools", year_path, method: :get, params: {year: 4}, class: "btn btn-info 4-year" %>
+
+    <input type="text" class="tokenize">
   </div>
 </div>
 
