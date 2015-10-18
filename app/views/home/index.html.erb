@@ -25,7 +25,7 @@
   <div class="col-md-4">
     <%= button_tag "Compare Two-Year Schools", class: "2-year" %>
     <%= button_tag "Compare Four-Year Schools", class: "4-year" %>
-
+    <%= button_to "Two-Year", year_path, method: :get, params: {year: 2}, class: "btn btn-info" %>
   </div>
 </div>
 
