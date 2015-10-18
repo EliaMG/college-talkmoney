@@ -11,6 +11,11 @@ class DataController < ApplicationController
     render json: data.as_json, code: code
   end
 
+  def user_input
+    # School.pluck(:name, :state)
+    @data =
+  end
+
 private
   def mock_data
     schools = [

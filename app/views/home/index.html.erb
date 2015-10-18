@@ -1,14 +1,43 @@
 <div class="container-fluid">
   <h1>Show me the money $$$</h1>
 <div class="row">
-  <div class="col-md-2">
+  <div class=search-form>
+    <%= form_tag(user_input_path, method: :get, role: "user_input") do %>
+      <h4> Choose your annual family income level: </h4>
+        <input checked="checked" id="low_income" name="inc" type="radio" value="low" />
+        <label for="low_income">Low-Income ($0-48k)</label>
+      <br>
+        <input id="mid_income" name="inc" type="radio" value="mid" />
+        <label for="mid_income">Mid-Income ($30-75k)</label>
+      <br>
+        <input id="high_income" name="inc" type="radio" value="high" />
+        <label for="high_income">High-Income ($75k+)</label>
+      <br>
+        <input id="avg_income" name="inc" type="radio" value="avg" />
+        <label for="avg_income">Don't know/Prefer not to answer</label>
+      <br>
+      <%= button_tag "Submit", class: "user_input" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= button_tag "Compare Two-Year Schools", class: "2-year" %>
+    <%= button_tag "Compare Four-Year Schools", class: "4-year" %>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
     <%= button_tag "Get Schools", class: "school-select" %>
   </div>
 </div>
-  <div class="row">
-    <svg class="bar-chart col-md-8"></svg>
-  </div>
+<div class="row">
+  <svg class="bar-chart col-md-4"></svg>
 </div>
 <div id="tooltip" class="hidden">
   <p><span id="value"></span></p>
+</div>
 </div>

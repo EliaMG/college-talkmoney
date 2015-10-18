@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   controller :data do
     get '/pricegraph', action: 'price_graph'
+    get 'user_input', action: 'user_input', as: 'user_input'
   end
 
   # Example of regular route:
