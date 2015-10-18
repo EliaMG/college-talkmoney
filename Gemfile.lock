@@ -49,6 +49,7 @@ GEM
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
+    bootstrap_tokenfield_rails (0.12.1)
     builder (3.2.2)
     byebug (6.0.2)
     coderay (1.1.0)
@@ -183,6 +184,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  bootstrap_tokenfield_rails
   byebug
   coffee-rails (~> 4.1.0)
   d3-rails
