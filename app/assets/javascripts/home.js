@@ -1,5 +1,4 @@
 $(function() {
-  init();
   $(".school-select").click(function(event) {
     var url = "/pricegraph";
     dataCall(event, url);
@@ -18,17 +17,17 @@ $(function() {
 
   function makeChart(data) {
 
-  var w = 420,
+  var width = 420,
       barHeight = 22,
-      h = 600;
+      height = barHeight * (data.length + 2);
 
   var xScale = d3.scale.linear()
       .domain([ 0, data[data.length - 1].net_price ])
-      .range([ 0, w]);
+      .range([ 0, width]);
 
   var yScale = d3.scale.ordinal()
         .domain(d3.range(data.length))
-        .rangeRoundBands([0, h], .1)
+        .rangeRoundBands([0, height], .1)
 
   var xAxis = d3.svg.axis()
     .scale(xScale)
@@ -42,7 +41,7 @@ $(function() {
     .data(data)
 
   bars.enter()
-      append("svg:rect")
+      .append("svg:rect")
       .attr("class", "bar")
 
   bars.exit()
@@ -116,40 +115,3 @@ $(function() {
     .text("Net Price");
   }
 });
-
-function init()
-{
-
-    //setup the svg
-    var svg = d3.select("#svg")
-        .attr("width", w+100)
-        .attr("height", h+100)
-    svg.append("svg:rect")
-        .attr("width", "100%")
-        .attr("height", "100%")
-        .attr("stroke", "#000")
-        .attr("fill", "none")
-
-    svg.append("svg:g")
-        .attr("id", "barchart")
-        .attr("transform", "translate(50,50)")
-
-    //setup our ui
-    d3.select("#data1")
-        .on("click", function(d,i) {
-            bars(data1)
-        })
-    d3.select("#data2")
-        .on("click", function(d,i) {
-            bars(data2)
-        })
-    d3.select("#random")
-        .on("click", function(d,i) {
-            num = document.getElementById("num").value
-            bars(random(num))
-        })
-
-
-    //make the bars
-    bars(data1)
-}
