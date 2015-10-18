@@ -17,7 +17,7 @@ class DataController < ApplicationController
 
   def year
     begin
-      data = School.where(years: params[:year]).pluck(:name, :state)
+      data = School.where(years: params[:year]).select('id', 'name', 'state')
       code = :ok
     rescue
       data = {}
