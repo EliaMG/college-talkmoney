@@ -1,6 +1,17 @@
 $(function() {
-  $(".year-select").click(function(event) {
-    var url = "/year";
+  // $('#tokenizeme').tokenfield({
+  // autocomplete: {
+  //   source: ['red','yellow','green','blue'],
+  // },
+  // showAutocompleteOnFocus: true
+  // })
+  $(".two-year").click(function(event) {
+    var url = "/year?year=2";
+    getData(event, url);
+  });
+
+  $(".four-year").click(function(event) {
+    var url = "/year?year=4";
     getData(event, url);
   });
 
@@ -15,12 +26,6 @@ $(function() {
   }
 
   function tokenList(data) {
-    $('input.tokenize').tokenfield({
-    autocomplete: {
-      source: data,
-      delay: 100
-    },
-    showAutocompleteOnFocus: true
-    });
+    console.log(data);
   }
 });

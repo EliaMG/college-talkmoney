@@ -15,5 +15,6 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require d3
-//= require bootstrap-tokenfield
+//= require jquery-ui/autocomplete
+//= require jquery-ui/tooltip
 //= require_tree .
