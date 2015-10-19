@@ -22,18 +22,26 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4 school-search">
-    <%= button_to "Compare Two-Year Schools", year_path, method: :get, params: {year: 2}, class: "two-year" %>
-    <%= button_to "Compare Four-Year Schools", year_path, method: :get, params: {year: 4}, class: "four-year" %>
-
-    <input type="text" id="school-search-txt" autofocus>
-    <div class="results" id="school-search-results"></div>
-  </div>
+    <%= button_to "Two-Year Schools", year_path, method: :get, params: {year: 2}, class: "two-year" %>
+    <%= button_to "Four-Year Schools", year_path, method: :get, params: {year: 4}, class: "four-year" %>
+  <section class="app-content">
+    <div class="school-search">
+      <input type="text" id="school-search-txt" autofocus>
+      <div class="results" id="school-search-results"></div>
+    </div>
+  </section>
 </div>
+
+<script>
+  $(function() {
+    new app.Schools;
+  });
+</script>
+
 
 <div class="row">
   <div class="col-md-4">
-    <%= button_tag "Get Schools", class: "school-select" %>
+    <%= button_tag "Compare Schools", class: "school-select" %>
   </div>
 </div>
 <div class="row">

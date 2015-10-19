@@ -40,24 +40,26 @@ app.Schools.prototype = {
   _initAutocomplete: function() {
     this._input
       .autocomplete({
-        source: '/schools',
+        source: 'schools/search',
         appendTo: '#school-search-results',
         select: $.proxy(this._select, this)
       })
       .autocomplete('instance')._renderItem = $.proxy(this._render, this);
   },
   _render: function(ul, item) {
+
+        console.log(item);
   var markup = [
-    '<span class="name">' + item.title + '</span>',
+    '<span class="name">' + item.name + '</span>',
     '<span class="state">' + item.state + '</span>'
   ];
   return $('<li>')
     .append(markup.join(''))
     .appendTo(ul);
-},
+  },
 
-_select: function(e, ui) {
-  this._input.val(ui.item.name);
-  return false;
-}
+  _select: function(e, ui) {
+    this._input.val(ui.item.name);
+    return false;
+  }
 };
