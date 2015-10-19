@@ -29,3 +29,35 @@ $(function() {
     console.log(data);
   }
 });
+
+var app = window.app = {};
+app.Schools = function() {
+  this._input = $('#school-search-txt');
+  this._initAutocomplete();
+};
+
+app.Schools.prototype = {
+  _initAutocomplete: function() {
+    this._input
+      .autocomplete({
+        source: '/schools',
+        appendTo: '#school-search-results',
+        select: $.proxy(this._select, this)
+      })
+      .autocomplete('instance')._renderItem = $.proxy(this._render, this);
+  },
+  _render: function(ul, item) {
+  var markup = [
+    '<span class="name">' + item.title + '</span>',
+    '<span class="state">' + item.state + '</span>'
+  ];
+  return $('<li>')
+    .append(markup.join(''))
+    .appendTo(ul);
+},
+
+_select: function(e, ui) {
+  this._input.val(ui.item.name);
+  return false;
+}
+};

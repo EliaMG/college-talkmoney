@@ -22,12 +22,12 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4 school-search">
     <%= button_to "Compare Two-Year Schools", year_path, method: :get, params: {year: 2}, class: "two-year" %>
     <%= button_to "Compare Four-Year Schools", year_path, method: :get, params: {year: 4}, class: "four-year" %>
 
-    <input type="text" id="tokenizeme" />
-
+    <input type="text" id="school-search-txt" autofocus>
+    <div class="results" id="school-search-results"></div>
   </div>
 </div>
 
