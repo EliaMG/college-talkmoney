@@ -37,12 +37,13 @@ $(function() {
 
   var chart = d3.select(".bar-chart")
       .attr("width", width)
-      .attr("height", height + data.length * data.length);
+      .attr("height", height + data.length * data.length +10);
 
   chart.selectAll("rect")
     .data(data)
     .enter()
     .append("rect")
+    .transition()
     .attr("x", 0)
     .attr("y", function(d, i) {
       return (i * yScale.rangeBand());
@@ -51,6 +52,9 @@ $(function() {
     .attr("width", function(d) {
       return xScale(d.net_price);
     })
+    .attr("fill", function(d, i) {
+					return "rgb(25, " + (100 + i * 30) + ", 35)";
+			   })
   // var bars = chart.selectAll("rect.bar")
   //   .data(data)
   //
@@ -112,7 +116,7 @@ $(function() {
     .call(xAxis);
 
   chart.append("text")      // text label for the x axis
-    .attr("transform", "translate(" + (width / 2) + " ," + (height + 15) + ")")
+    .attr("transform", "translate(" + (width / 2) + " ," + (height + 25) + ")")
     .style("text-anchor", "middle")
     .style("font-weight", "bold")
     .text("Net Price");
