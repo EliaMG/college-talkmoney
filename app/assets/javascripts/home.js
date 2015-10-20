@@ -36,91 +36,75 @@ $(function() {
     .ticks(6);
 
   var chart = d3.select(".bar-chart")
-      .append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height + data.length * data.length +10);
 
-  var bar = chart.selectAll("g")
+  chart.selectAll("rect")
     .data(data)
-    .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-    bar.append("rect")
-      .attr("width", function(d) { return xScale(d.net_price); })
-      .attr("height", barHeight - 1);
-  // var bars = chart.selectAll("rect.bar")
-  //   .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", function(d, i) {
+      return (i * yScale.rangeBand());
+    })
+    .attr("height", yScale.rangeBand() - 3)
+    .attr("width", function(d) {
+      return xScale(d.net_price);
+    })
+      // .attr("transform", function(d,i) {
+      //     return "translate(" + [yScale(i), 0] + ")"
+      // })
+    .attr("fill", function(d, i) {
+      return "rgb(25, " + (100 + i * 30) + ", 35)";
+    })
+    .on("mouseover", function(d) {
+      var matrix = this.getScreenCTM()
+      .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
 
-  // bars.enter()
-  //     .append("svg:rect")
-  //     .attr("class", "bar")
-  //
-  // bars.exit()
-  //   .transition()
-  //   .duration(300)
-  //   .ease("exp")
-  //     .attr("width", 0)
-  //     .remove()
-
-  // chart.selectAll("rect")
-  //     .data(data)
-  //     .enter()
-  //     .append("rect")
-  //     .attr("y", function(d, i) {
-  //       return yScale(i);
-  //     })
-  //     .attr("x", function(d) {
-  //       return xScale(d.net_price);
-  //     })
-  //
-  //     .attr("height", yScale.rangeBand())
-  //     .attr("width", function(d) {
-  //       return xScale(d.net_price);
-  //     });
-      // .transition()
-  //     .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-  // bar.append("rect")
-  //     .attr("width", function(d) { return x(d.net_price); })
-  //     .attr("height", barHeight - 1)
-      // .on("mouseover", function(d) {
-      //
-      //    //Get this bar's x/y values, then augment for the tooltip
-      //    var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand() / 2;
-      //    var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
-      //
-      //    //Update the tooltip position and value
-      //    d3.select("#tooltip")
-      //      .style("left", xPosition + "px")
-      //      .style("top", yPosition + "px")
-      //      .select("#value")
-      //      .text(d);
-      //
-      //    //Show the tooltip
-      //    d3.select("#tooltip").classed("hidden", false);
-      //
-      //   })
-      //   .on("mouseout", function() {
-      //
-      //    //Hide the tooltip
-      //    d3.select("#tooltip").classed("hidden", true);
-      //
-      //   });
-
-
-  // bar.append("text")
-  //   .attr("x", function(d) { return x(d.net_price) - 4; })
-  //   .attr("y", barHeight / 2)
-  //   .attr("dy", ".35em")
-  //   .text(function(d) { return d.name; });
+      d3.select("#tooltip")
+        .classed("hidden", false)
+        .style("left", (window.pageXOffset + matrix.e + 30) + "px")
+        .style("top", (window.pageYOffset + matrix.f - 30) + "px")
+        .select("#value")
+        .html("<strong>" + d.name + "</strong> <br/>" +
+              "Net Price: $" + d.net_price);
+    })
+    .on("mouseout", function() {
+      //Hide the tooltip
+      d3.select("#tooltip").classed("hidden", true);
+    });
 
   chart.append("g")
     .attr("class", "axis")
-    .attr("transform", "translate(0,90)")
+    .attr("transform", "translate(0, " + (height - 10) + ")")
     .call(xAxis);
 
   chart.append("text")      // text label for the x axis
-    .attr("transform", "translate(" + (width / 2) + " ," + (height) + ")")
+    .attr("transform", "translate(" + (width / 2) + " ," + (height + 25) + ")")
     .style("text-anchor", "middle")
     .style("font-weight", "bold")
     .text("Net Price");
   }
 });
+// bar.append("text")
+//   .attr("x", function(d) { return x(d.net_price) - 4; })
+//   .attr("y", barHeight / 2)
+//   .attr("dy", ".35em")
+//   .text(function(d) { return d.name; });
+// var bars = chart.selectAll("rect.bar")
+//   .data(data)
+//
+// bars.enter()
+//     .append("svg:rect")
+//     .attr("class", "bar")
+//
+// bars.exit()
+//   .transition()
+//   .duration(300)
+//   .ease("exp")
+//     .attr("width", 0)
+//     .remove()
+
+
+    // .transition()
+    // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });

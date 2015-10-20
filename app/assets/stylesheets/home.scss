@@ -1,24 +1,27 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 .row {
   margin-top: 20px;
+  padding-left: 10px;
 }
+
 
 svg {
   padding-bottom: 20px;
 }
-.bar-chart rect {
-  fill: #17692F;
-}
+// .bar-chart rect {
+//   fill: #17692F;
+// }
 
 .bar-chart rect:hover {
-  fill: #3EF775;
+  fill: #00FF11;
 }
 
 .bar-chart text {
   fill: #000;
-  font: 10px sans-serif;
+  font: 1em sans-serif;
   text-anchor: end;
 }
 
