@@ -78,30 +78,36 @@ $(function() {
       })
       // .transition()
       // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+      var chart = d3.select(".bar-chart")
 
-      .on("click", function(d) {
+      chart.on("click", function(d) {
+        d3.select("#tooltip")
+          .classed("hidden", false)
+          .style("left:", 200 + "px")
+          .style("top:", 66 + "px")
+          .select("#value")
+          .text("HEYEYHEHSDFH:");
+      });
 
-         //Get this bar's x/y values, then augment for the tooltip
-         var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand() / 2;
-         var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
-
-         //Update the tooltip position and value
-         d3.select("#tooltip")
-           .style("left", 200 + "px")
-           .style("top", 66 + "px")
-           .select("#value")
-           .text(d.name);
-
-         //Show the tooltip
-         d3.select("#tooltip").classed("hidden", false);
-
-        })
-        .on("mouseout", function() {
-
-         //Hide the tooltip
-         d3.select("#tooltip").classed("hidden", true);
-
-        });
+      // chart.on("click", function(d) {
+      //
+      //   //  //Get this bar's x/y values, then augment for the tooltip
+      //   //  var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand() / 2;
+      //   //  var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
+      //   //
+      //   //  //Update the tooltip position and value
+      //   //
+      //   //  //Show the tooltip
+      //   //  d3.select("#tooltip").classed("hidden", false);
+      //   //
+      //   // })
+      //   // .on("mouseout", function() {
+      //   //
+      //   //  //Hide the tooltip
+      //   //  d3.select("#tooltip").classed("hidden", true);
+      //     console.log("why");
+      //     d3.select("#tooltip").classed("hidden", false);  })
+      //   });
 
 
   // bar.append("text")
