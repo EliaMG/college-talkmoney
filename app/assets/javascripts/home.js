@@ -19,7 +19,7 @@ $(function() {
   function makeChart(data) {
 
   var width = 420,
-      barHeight = 25,
+      barHeight = 22,
       height = barHeight * (data.length + 2);
 
   var xScale = d3.scale.linear()
@@ -36,17 +36,21 @@ $(function() {
     .ticks(6);
 
   var chart = d3.select(".bar-chart")
-      .append("svg")
       .attr("width", width)
       .attr("height", height);
 
-  var bar = chart.selectAll("g")
+  chart.selectAll("rect")
     .data(data)
-    .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-    bar.append("rect")
-      .attr("width", function(d) { return xScale(d.net_price); })
-      .attr("height", barHeight - 1);
+    .enter()
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", function(d, i) {
+      return (i * yScale.rangeBand());
+    })
+    .attr("height", yScale.rangeBand() - 3)
+    .attr("width", function(d) {
+      return xScale(d.net_price);
+    })
   // var bars = chart.selectAll("rect.bar")
   //   .data(data)
   //
@@ -61,21 +65,7 @@ $(function() {
   //     .attr("width", 0)
   //     .remove()
 
-  chart.selectAll("rect")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("y", function(d, i) {
-        return yScale(i);
-      })
-      .attr("x", function(d) {
-        return xScale(d.net_price);
-      })
 
-      .attr("height", yScale.rangeBand())
-      .attr("width", function(d) {
-        return xScale(d.net_price);
-      })
       // .transition()
       // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
       var chart = d3.select(".bar-chart")
@@ -118,7 +108,7 @@ $(function() {
 
   chart.append("g")
     .attr("class", "axis")
-    .attr("transform", "translate(0,90)")
+    .attr("transform", "translate(0,105)")
     .call(xAxis);
 
   chart.append("text")      // text label for the x axis
