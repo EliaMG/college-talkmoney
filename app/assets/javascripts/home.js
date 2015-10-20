@@ -36,38 +36,46 @@ $(function() {
     .ticks(6);
 
   var chart = d3.select(".bar-chart")
-      // .attr("width", width)
-      // .attr("height", height);
-  var bars = chart.selectAll("rect.bar")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  var bar = chart.selectAll("g")
     .data(data)
+    .enter().append("g")
+    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+    bar.append("rect")
+      .attr("width", function(d) { return xScale(d.net_price); })
+      .attr("height", barHeight - 1);
+  // var bars = chart.selectAll("rect.bar")
+  //   .data(data)
 
-  bars.enter()
-      .append("svg:rect")
-      .attr("class", "bar")
+  // bars.enter()
+  //     .append("svg:rect")
+  //     .attr("class", "bar")
+  //
+  // bars.exit()
+  //   .transition()
+  //   .duration(300)
+  //   .ease("exp")
+  //     .attr("width", 0)
+  //     .remove()
 
-  bars.exit()
-    .transition()
-    .duration(300)
-    .ease("exp")
-      .attr("width", 0)
-      .remove()
-
-
-  chart.selectAll("rect")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("y", function(d, i) {
-        return yScale(i);
-      })
-      .attr("x", function(d) {
-        return xScale(d.net_price);
-      })
-
-      .attr("height", yScale.rangeBand())
-      .attr("width", function(d) {
-        return xScale(d.net_price);
-      });
+  // chart.selectAll("rect")
+  //     .data(data)
+  //     .enter()
+  //     .append("rect")
+  //     .attr("y", function(d, i) {
+  //       return yScale(i);
+  //     })
+  //     .attr("x", function(d) {
+  //       return xScale(d.net_price);
+  //     })
+  //
+  //     .attr("height", yScale.rangeBand())
+  //     .attr("width", function(d) {
+  //       return xScale(d.net_price);
+  //     });
       // .transition()
   //     .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
   // bar.append("rect")
@@ -106,7 +114,7 @@ $(function() {
 
   chart.append("g")
     .attr("class", "axis")
-    .attr("transform", "translate(0,80)")
+    .attr("transform", "translate(0,90)")
     .call(xAxis);
 
   chart.append("text")      // text label for the x axis
