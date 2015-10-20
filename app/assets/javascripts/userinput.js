@@ -1,10 +1,4 @@
 $(function() {
-  // $('#tokenizeme').tokenfield({
-  // autocomplete: {
-  //   source: ['red','yellow','green','blue'],
-  // },
-  // showAutocompleteOnFocus: true
-  // })
   $(".two-year").click(function(event) {
     var url = "/year?year=2";
     getData(event, url);
@@ -47,8 +41,6 @@ app.Schools.prototype = {
       .autocomplete('instance')._renderItem = $.proxy(this._render, this);
   },
   _render: function(ul, item) {
-
-        console.log(item);
   var markup = [
     '<span class="name">' + item.name + '</span>',
     '<span class="state">' + item.state + '</span>'

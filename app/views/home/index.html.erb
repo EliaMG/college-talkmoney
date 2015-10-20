@@ -1,5 +1,6 @@
 <div class="container-fluid">
-  <h1>Show me the money $$$</h1>
+  <h1>College Cost Comparator</h1>
+  <h3>Discover your average cost, debt, and earnings from schools nationwide!</h3>
 <div class="row">
   <div class=search-form>
     <%= form_tag(user_input_path, method: :get, role: "user_input") do %>
@@ -22,8 +23,10 @@
 </div>
 
 <div class="row">
-    <%= button_to "Two-Year Schools", year_path, method: :get, params: {year: 2}, class: "two-year" %>
-    <%= button_to "Four-Year Schools", year_path, method: :get, params: {year: 4}, class: "four-year" %>
+      <input checked="checked" id="two_year" name="years" type="radio" value="2" />
+      <label for="two_year">Two-Year Schools</label>
+      <input id="four_year" name="years" type="radio" value="4" />
+      <label for="four_year">Four-Year Schools</label>
   <section class="app-content">
     <div class="school-search">
       <input type="text" id="school-search-txt" autofocus>
