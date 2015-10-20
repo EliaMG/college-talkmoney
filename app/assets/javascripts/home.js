@@ -43,7 +43,6 @@ $(function() {
     .data(data)
     .enter()
     .append("rect")
-    .transition()
     .attr("x", 0)
     .attr("y", function(d, i) {
       return (i * yScale.rangeBand());
@@ -52,63 +51,28 @@ $(function() {
     .attr("width", function(d) {
       return xScale(d.net_price);
     })
+      // .attr("transform", function(d,i) {
+      //     return "translate(" + [yScale(i), 0] + ")"
+      // })
     .attr("fill", function(d, i) {
-					return "rgb(25, " + (100 + i * 30) + ", 35)";
-			   })
-  // var bars = chart.selectAll("rect.bar")
-  //   .data(data)
-  //
-  // bars.enter()
-  //     .append("svg:rect")
-  //     .attr("class", "bar")
-  //
-  // bars.exit()
-  //   .transition()
-  //   .duration(300)
-  //   .ease("exp")
-  //     .attr("width", 0)
-  //     .remove()
+      return "rgb(25, " + (100 + i * 30) + ", 35)";
+    })
+    .on("mouseover", function(d) {
+      var matrix = this.getScreenCTM()
+      .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
 
-
-      // .transition()
-      // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-      var chart = d3.select(".bar-chart")
-
-      chart.on("click", function(d) {
-        d3.select("#tooltip")
-          .classed("hidden", false)
-          .style("left:", 200 + "px")
-          .style("top:", 66 + "px")
-          .select("#value")
-          .text("HEYEYHEHSDFH:");
-      });
-
-      // chart.on("click", function(d) {
-      //
-      //   //  //Get this bar's x/y values, then augment for the tooltip
-      //   //  var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand() / 2;
-      //   //  var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
-      //   //
-      //   //  //Update the tooltip position and value
-      //   //
-      //   //  //Show the tooltip
-      //   //  d3.select("#tooltip").classed("hidden", false);
-      //   //
-      //   // })
-      //   // .on("mouseout", function() {
-      //   //
-      //   //  //Hide the tooltip
-      //   //  d3.select("#tooltip").classed("hidden", true);
-      //     console.log("why");
-      //     d3.select("#tooltip").classed("hidden", false);  })
-      //   });
-
-
-  // bar.append("text")
-  //   .attr("x", function(d) { return x(d.net_price) - 4; })
-  //   .attr("y", barHeight / 2)
-  //   .attr("dy", ".35em")
-  //   .text(function(d) { return d.name; });
+      d3.select("#tooltip")
+        .classed("hidden", false)
+        .style("left", (window.pageXOffset + matrix.e + 30) + "px")
+        .style("top", (window.pageYOffset + matrix.f - 30) + "px")
+        .select("#value")
+        .html("<strong>" + d.name + "</strong> <br/>" +
+              "Net Price: $" + d.net_price);
+    })
+    .on("mouseout", function() {
+      //Hide the tooltip
+      d3.select("#tooltip").classed("hidden", true);
+    });
 
   chart.append("g")
     .attr("class", "axis")
@@ -122,3 +86,25 @@ $(function() {
     .text("Net Price");
   }
 });
+// bar.append("text")
+//   .attr("x", function(d) { return x(d.net_price) - 4; })
+//   .attr("y", barHeight / 2)
+//   .attr("dy", ".35em")
+//   .text(function(d) { return d.name; });
+// var bars = chart.selectAll("rect.bar")
+//   .data(data)
+//
+// bars.enter()
+//     .append("svg:rect")
+//     .attr("class", "bar")
+//
+// bars.exit()
+//   .transition()
+//   .duration(300)
+//   .ease("exp")
+//     .attr("width", 0)
+//     .remove()
+
+
+    // .transition()
+    // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
