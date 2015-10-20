@@ -11,6 +11,34 @@ class DataController < ApplicationController
     render json: data.as_json, code: code
   end
 
+  def user_input
+    # @data =
+  end
+
+  def year
+    begin
+      data = School.where(years: params[:year]).select('id', 'name', 'state')
+      code = :ok
+    rescue
+      data = {}
+      code = :no_content
+      end
+
+    render json: data.as_json, code: code
+  end
+
+  # def four_year
+  #   begin
+  #     data = School.where(years: 4).pluck(:name, :state)
+  #     code = :ok
+  #   rescue
+  #     data = {}
+  #     code = :no_content
+  #     end
+  #
+  #   render json: data.as_json, code: code
+  # end
+
 private
   def mock_data
     schools = [

@@ -1,4 +1,5 @@
 $(function() {
+
   $(".school-select").click(function(event) {
     var url = "/pricegraph";
     dataCall(event, url);
@@ -18,41 +19,90 @@ $(function() {
   function makeChart(data) {
 
   var width = 420,
-      barHeight = 20,
+      barHeight = 22,
       height = barHeight * (data.length + 2);
 
-  var x = d3.scale.linear()
+  var xScale = d3.scale.linear()
       .domain([ 0, data[data.length - 1].net_price ])
       .range([ 0, width]);
 
-  var y = d3.scale.ordinal()
+  var yScale = d3.scale.ordinal()
         .domain(d3.range(data.length))
-        .rangeBands([0, height], .2)
+        .rangeRoundBands([0, height], .1)
 
   var xAxis = d3.svg.axis()
-    .scale(x)
+    .scale(xScale)
     .orient("bottom")
-    .ticks(8);
+    .ticks(6);
 
   var chart = d3.select(".bar-chart")
-      .attr("width", width)
-      .attr("height", height);
+      // .attr("width", width)
+      // .attr("height", height);
+  var bars = chart.selectAll("rect.bar")
+    .data(data)
 
-  var bar = chart.selectAll("g")
+  bars.enter()
+      .append("svg:rect")
+      .attr("class", "bar")
+
+  bars.exit()
+    .transition()
+    .duration(300)
+    .ease("exp")
+      .attr("width", 0)
+      .remove()
+
+
+  chart.selectAll("rect")
       .data(data)
-    .enter().append("g")
+      .enter()
+      .append("rect")
+      .attr("y", function(d, i) {
+        return yScale(i);
+      })
+      .attr("x", function(d) {
+        return xScale(d.net_price);
+      })
+
+      .attr("height", yScale.rangeBand())
+      .attr("width", function(d) {
+        return xScale(d.net_price);
+      });
       // .transition()
-      .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-  bar.append("rect")
-      .attr("width", function(d) { return x(d.net_price); })
-      .attr("height", barHeight - 1);
+  //     .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+  // bar.append("rect")
+  //     .attr("width", function(d) { return x(d.net_price); })
+  //     .attr("height", barHeight - 1)
+      // .on("mouseover", function(d) {
+      //
+      //    //Get this bar's x/y values, then augment for the tooltip
+      //    var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand() / 2;
+      //    var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
+      //
+      //    //Update the tooltip position and value
+      //    d3.select("#tooltip")
+      //      .style("left", xPosition + "px")
+      //      .style("top", yPosition + "px")
+      //      .select("#value")
+      //      .text(d);
+      //
+      //    //Show the tooltip
+      //    d3.select("#tooltip").classed("hidden", false);
+      //
+      //   })
+      //   .on("mouseout", function() {
+      //
+      //    //Hide the tooltip
+      //    d3.select("#tooltip").classed("hidden", true);
+      //
+      //   });
 
 
-  bar.append("text")
-    .attr("x", function(d) { return x(d.net_price) - 4; })
-    .attr("y", barHeight / 2)
-    .attr("dy", ".35em")
-    .text(function(d) { return d.name; });
+  // bar.append("text")
+  //   .attr("x", function(d) { return x(d.net_price) - 4; })
+  //   .attr("y", barHeight / 2)
+  //   .attr("dy", ".35em")
+  //   .text(function(d) { return d.name; });
 
   chart.append("g")
     .attr("class", "axis")

@@ -1,14 +1,56 @@
 <div class="container-fluid">
-  <h1>Show me the money $$$</h1>
+  <h1>College Cost Comparator</h1>
+  <h3>Discover your average cost, debt, and earnings from schools nationwide!</h3>
 <div class="row">
-  <div class="col-md-2">
-    <%= button_tag "Get Schools", class: "school-select" %>
+  <div class=search-form>
+    <%= form_tag(user_input_path, method: :get, role: "user_input") do %>
+      <h4> Choose your annual family income level: </h4>
+        <input checked="checked" id="low_income" name="inc" type="radio" value="low" />
+        <label for="low_income">Low-Income ($0-48k)</label>
+      <br>
+        <input id="mid_income" name="inc" type="radio" value="mid" />
+        <label for="mid_income">Mid-Income ($30-75k)</label>
+      <br>
+        <input id="high_income" name="inc" type="radio" value="high" />
+        <label for="high_income">High-Income ($75k+)</label>
+      <br>
+        <input id="avg_income" name="inc" type="radio" value="avg" />
+        <label for="avg_income">Don't know/Prefer not to answer</label>
+      <br>
+      <%= button_tag "Submit", class: "user_input" %>
+    <% end %>
   </div>
 </div>
-  <div class="row">
-    <svg class="bar-chart col-md-8"></svg>
+
+<div class="row">
+      <input checked="checked" id="two_year" name="years" type="radio" value="2" />
+      <label for="two_year">Two-Year Schools</label>
+      <input id="four_year" name="years" type="radio" value="4" />
+      <label for="four_year">Four-Year Schools</label>
+  <section class="app-content">
+    <div class="school-search">
+      <input type="text" id="school-search-txt" autofocus>
+      <div class="results" id="school-search-results"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+  $(function() {
+    new app.Schools;
+  });
+</script>
+
+
+<div class="row">
+  <div class="col-md-4">
+    <%= button_tag "Compare Schools", class: "school-select" %>
   </div>
+</div>
+<div class="row">
+  <svg class="bar-chart col-md-4"></svg>
 </div>
 <div id="tooltip" class="hidden">
   <p><span id="value"></span></p>
+</div>
 </div>

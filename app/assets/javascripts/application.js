@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require bootstrap-sprockets
 //= require d3
+//= require jquery-ui/autocomplete
+//= require jquery-ui/tooltip
+//= require_tree .

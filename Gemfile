@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 gem 'httparty'
 gem 'd3-rails'
+gem 'jquery-ui-rails'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 gem 'bootstrap-sass'
