@@ -49,7 +49,7 @@ $(function() {
       .attr("height", barHeight - 1);
   // var bars = chart.selectAll("rect.bar")
   //   .data(data)
-
+  //
   // bars.enter()
   //     .append("svg:rect")
   //     .attr("class", "bar")
@@ -61,49 +61,47 @@ $(function() {
   //     .attr("width", 0)
   //     .remove()
 
-  // chart.selectAll("rect")
-  //     .data(data)
-  //     .enter()
-  //     .append("rect")
-  //     .attr("y", function(d, i) {
-  //       return yScale(i);
-  //     })
-  //     .attr("x", function(d) {
-  //       return xScale(d.net_price);
-  //     })
-  //
-  //     .attr("height", yScale.rangeBand())
-  //     .attr("width", function(d) {
-  //       return xScale(d.net_price);
-  //     });
+  chart.selectAll("rect")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("y", function(d, i) {
+        return yScale(i);
+      })
+      .attr("x", function(d) {
+        return xScale(d.net_price);
+      })
+
+      .attr("height", yScale.rangeBand())
+      .attr("width", function(d) {
+        return xScale(d.net_price);
+      })
       // .transition()
-  //     .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-  // bar.append("rect")
-  //     .attr("width", function(d) { return x(d.net_price); })
-  //     .attr("height", barHeight - 1)
-      // .on("mouseover", function(d) {
-      //
-      //    //Get this bar's x/y values, then augment for the tooltip
-      //    var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand() / 2;
-      //    var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
-      //
-      //    //Update the tooltip position and value
-      //    d3.select("#tooltip")
-      //      .style("left", xPosition + "px")
-      //      .style("top", yPosition + "px")
-      //      .select("#value")
-      //      .text(d);
-      //
-      //    //Show the tooltip
-      //    d3.select("#tooltip").classed("hidden", false);
-      //
-      //   })
-      //   .on("mouseout", function() {
-      //
-      //    //Hide the tooltip
-      //    d3.select("#tooltip").classed("hidden", true);
-      //
-      //   });
+      // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+
+      .on("click", function(d) {
+
+         //Get this bar's x/y values, then augment for the tooltip
+         var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand() / 2;
+         var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + height / 2;
+
+         //Update the tooltip position and value
+         d3.select("#tooltip")
+           .style("left", 200 + "px")
+           .style("top", 66 + "px")
+           .select("#value")
+           .text(d.name);
+
+         //Show the tooltip
+         d3.select("#tooltip").classed("hidden", false);
+
+        })
+        .on("mouseout", function() {
+
+         //Hide the tooltip
+         d3.select("#tooltip").classed("hidden", true);
+
+        });
 
 
   // bar.append("text")
