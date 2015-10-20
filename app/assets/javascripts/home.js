@@ -19,7 +19,7 @@ $(function() {
   function makeChart(data) {
 
   var width = 420,
-      barHeight = 22,
+      barHeight = 25,
       height = barHeight * (data.length + 2);
 
   var xScale = d3.scale.linear()
