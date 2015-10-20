@@ -37,7 +37,7 @@ $(function() {
 
   var chart = d3.select(".bar-chart")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height + data.length * data.length);
 
   chart.selectAll("rect")
     .data(data)
@@ -108,11 +108,11 @@ $(function() {
 
   chart.append("g")
     .attr("class", "axis")
-    .attr("transform", "translate(0,105)")
+    .attr("transform", "translate(0, " + (height - 10) + ")")
     .call(xAxis);
 
   chart.append("text")      // text label for the x axis
-    .attr("transform", "translate(" + (width / 2) + " ," + (height) + ")")
+    .attr("transform", "translate(" + (width / 2) + " ," + (height + 15) + ")")
     .style("text-anchor", "middle")
     .style("font-weight", "bold")
     .text("Net Price");
