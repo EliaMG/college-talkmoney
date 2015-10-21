@@ -19,6 +19,12 @@
  @import "bootstrap";
 
 body {
-  background: image-url("school.png");
+  background-color:rgba(187, 184, 169, .2);
   font-family: 'Ubuntu', sans-serif;
+}
+// #E9DDC6 is school background image color
+// #E1DFD6 is paper
+.jumbotron {
+  background: image-url("paper.png");
+  // background-color: rgba(89, 221, 98, .8);
 }

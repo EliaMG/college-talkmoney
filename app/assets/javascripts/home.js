@@ -36,8 +36,11 @@ $(function() {
     .ticks(6);
 
   var chart = d3.select(".bar-chart")
-      .attr("width", width)
-      .attr("height", height + data.length * data.length +10);
+    .attr({"width": "70%", "height": "70%"})
+    .attr("viewBox", "0 0 " + (width + 100) + " " + (height + 100) )
+    .attr("preserveAspectRatio", "xMidYMid meet");
+      // .attr("width", width)
+      // .attr("height", height + data.length * data.length +10);
 
 chart.selectAll("rect")
       .data(data)
