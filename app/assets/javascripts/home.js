@@ -1,5 +1,9 @@
 
 $(function() {
+  $(".fa-info").onclick(function() {
+     $("#aboutModal").modal();
+  });
+
   $(".school-select").click(function(event) {
     var url = "/pricegraph";
     dataCall(event, url);
@@ -55,10 +59,8 @@ chart.selectAll("rect")
       .attr("fill", function(d, i) {
         return "rgb(25, " + (100 + i * 30) + ", 35)";
       })
-      // .attr("transform", function(d,i) {
-      //     return "translate(" + [yScale(i), 0] + ")"
-      // })
-    // getscreenCTM help from: http://stackoverflow.com/questions/16256454/d3-js-position-tooltips-using-element-position-not-mouse-position
+    // getscreenCTM tooltip placement help from: http://stackoverflow.com/questions/16256454/d3-js-position-tooltips-using-element-position-not-mouse-position
+    //toLocaleString returns the number with commas
       .on("mouseover", function(d) {
       var matrix = this.getScreenCTM()
       .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
@@ -69,7 +71,7 @@ chart.selectAll("rect")
         .style("top", (window.pageYOffset + matrix.f - 30) + "px")
         .select("#value")
         .html("<strong>" + d.name + "</strong> <br/>" +
-              "Net Price: $" + d.net_price);
+              "Net Price: $" + d.net_price.toLocaleString());
     })
     .on("mouseout", function() {
       //Hide the tooltip
