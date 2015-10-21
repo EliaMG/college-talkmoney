@@ -10,12 +10,18 @@
 svg {
   padding-bottom: 20px;
   display: block;
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
 }
 // .bar-chart rect {
 //   fill: #17692F;
 // }
+.fa-info {
+  padding-top: 5px;
+}
+.fa-info:hover {
+  color: #00FF11;
+}
 
 .bar-chart rect:hover {
   fill: #00FF11;

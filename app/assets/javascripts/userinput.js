@@ -43,6 +43,14 @@ app.Schools.prototype = {
       })
       .autocomplete('instance')._renderItem = $.proxy(this._render, this);
   },
+
+  _change: function(event,ui) {
+    console.log(ui);
+    if (ui.item.name==null) {
+      $("#school-search-txt").val('');
+      $("#school-search-txt").focus();
+    }
+  },
   _render: function(ul, item) {
   var markup = [
     '<span class="name">' + item.name + '</span>',
