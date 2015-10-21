@@ -30,6 +30,9 @@ app.Schools = function() {
   this._initAutocomplete();
 };
 
+// autocomplete prototype https://github.com/lugolabs/tutorials/tree/master/amazing
+//h/t to http://stackoverflow.com/questions/2909077/autocomplete-disallow-free-text-entry
+
 app.Schools.prototype = {
   _initAutocomplete: function() {
     this._input

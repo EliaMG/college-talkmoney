@@ -39,25 +39,24 @@ $(function() {
       .attr("width", width)
       .attr("height", height + data.length * data.length +10);
 
-  chart.selectAll("rect")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", function(d, i) {
-      return (i * yScale.rangeBand());
-    })
-    .attr("height", yScale.rangeBand() - 3)
-    .attr("width", function(d) {
-      return xScale(d.net_price);
-    })
+chart.selectAll("rect")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("x", 0)
+      .attr("y", function(d, i) {
+        return (i * yScale.rangeBand());
+      })
+      .attr("height", yScale.rangeBand() - 3)
+      .attr("width", 0)
+      .attr("fill", function(d, i) {
+        return "rgb(25, " + (100 + i * 30) + ", 35)";
+      })
       // .attr("transform", function(d,i) {
       //     return "translate(" + [yScale(i), 0] + ")"
       // })
-    .attr("fill", function(d, i) {
-      return "rgb(25, " + (100 + i * 30) + ", 35)";
-    })
-    .on("mouseover", function(d) {
+    // getscreenCTM help from: http://stackoverflow.com/questions/16256454/d3-js-position-tooltips-using-element-position-not-mouse-position
+      .on("mouseover", function(d) {
       var matrix = this.getScreenCTM()
       .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
 
@@ -72,7 +71,13 @@ $(function() {
     .on("mouseout", function() {
       //Hide the tooltip
       d3.select("#tooltip").classed("hidden", true);
-    });
+    })
+      .transition()
+        .delay(function(d, i) { return i * 100; })
+      .duration(1000)
+      .attr("width", function(d) {
+        return xScale(d.net_price);
+      });
 
   chart.append("g")
     .attr("class", "axis")
