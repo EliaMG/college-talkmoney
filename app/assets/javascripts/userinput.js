@@ -39,18 +39,12 @@ app.Schools.prototype = {
       .autocomplete({
         source: 'schools/search',
         appendTo: '#school-search-results',
-        select: $.proxy(this._select, this)
+        select: $.proxy(this._select, this),
+        change: $.proxy(this._change, this)
       })
       .autocomplete('instance')._renderItem = $.proxy(this._render, this);
   },
 
-  _change: function(event,ui) {
-    console.log(ui);
-    if (ui.item.name==null) {
-      $("#school-search-txt").val('');
-      $("#school-search-txt").focus();
-    }
-  },
   _render: function(ul, item) {
   var markup = [
     '<span class="name">' + item.name + '</span>',
@@ -59,6 +53,12 @@ app.Schools.prototype = {
   return $('<li>')
     .append(markup.join(''))
     .appendTo(ul);
+  },
+  _change: function(event,ui) {
+    if (ui.item==null) {
+      $("#school-search-txt").val('');
+      $("#school-search-txt").focus();
+    }
   },
 
   _select: function(e, ui) {

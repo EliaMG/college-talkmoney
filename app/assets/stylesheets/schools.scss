@@ -2,9 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .school-search input {
-  width: 50%;
+  width: 60%;
   font-size: 1em;
   padding: .5em 1.3em;
+  margin-bottom: 10px;
   // background: transparent;
   border: 1px solid #ddd;
   border-radius: 2em;
@@ -12,6 +13,11 @@
 
 .school-search input:focus {
   border-color: #A5CEF5;
+}
+
+label {
+  margin-right: 15px;
+  font-size: 1.5rem;
 }
 
 .school-search .results .ui-widget-content {

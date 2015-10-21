@@ -1,8 +1,5 @@
 
 $(function() {
-  $(".fa-info").onclick(function() {
-     $("#aboutModal").modal();
-  });
 
   $(".school-select").click(function(event) {
     var url = "/pricegraph";
@@ -41,7 +38,7 @@ $(function() {
 
   var chart = d3.select(".bar-chart")
     .attr({"width": "70%", "height": "70%"})
-    .attr("viewBox", "0 0 " + (width + 100) + " " + (height + 100) )
+    .attr("viewBox", "0 0 " + (width + 100) + " " + (height + 50) )
     .attr("preserveAspectRatio", "xMidYMid meet");
       // .attr("width", width)
       // .attr("height", height + data.length * data.length +10);
@@ -99,7 +96,7 @@ chart.selectAll("rect")
   var svg= d3.select(".cyl-chart")
     // .append("svg")
     .attr("width", 600)
-    .attr("height", 600);
+    .attr("height", 500);
 
   var dataset = ["blue", "red", "green","purple"];
 
