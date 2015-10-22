@@ -37,7 +37,9 @@ app.Schools.prototype = {
   _initAutocomplete: function() {
     this._input
       .autocomplete({
-        source: 'schools/search',
+        source: function(request, response) {
+          $.getJSON('schools/search', { term: request.term, years: $('input:radio[name=years]:checked').val() }, response);
+        },
         appendTo: '#school-search-results',
         select: $.proxy(this._select, this),
         change: $.proxy(this._change, this)
