@@ -1,6 +1,15 @@
 
 $(function() {
 
+  $(".user-input").click(function(event) {
+    event.preventDefault();
+    var inc = $(this).siblings('input:radio[name=inc]:checked').val(),
+        ids = $(this).siblings("#school-ids").val(),
+        url = "/pricegraph?inc=" + inc + "&school-ids=" +ids;
+        console.log(url);
+    // dataCall(event, url);
+  });
+
   $(".school-select").click(function(event) {
     var url = "/pricegraph";
     dataCall(event, url);

@@ -11,10 +11,6 @@ class DataController < ApplicationController
     render json: data.as_json, code: code
   end
 
-  def user_input
-    # @data =
-  end
-
 private
   def mock_data
     schools = [

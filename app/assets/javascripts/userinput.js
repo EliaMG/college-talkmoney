@@ -1,4 +1,5 @@
 var app = window.app = {};
+var counter = 0;
 app.Schools = function() {
   this._input = $('#school-search-txt');
   this._initAutocomplete();
@@ -41,10 +42,11 @@ app.Schools.prototype = {
     $("#selected-schools")
     .append(ui.item.name)
     .append("<br>");
-    $('input:hidden[name=school-ids]').val(ui.item.id);
-
-// (this._input.val(ui.item.name)
-    // console.log(this);
-    // return false;
+    //adds a comma separated list of ids to the hidden input
+    var results = $('#school-ids'),
+        inputs = ui.item.id,
+        stringAppend = results.val().length > 0 ? results.val() + "," : "";
+        results .val( stringAppend + inputs );
+        counter += 1;
   }
 };
