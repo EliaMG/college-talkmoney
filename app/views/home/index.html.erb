@@ -22,9 +22,9 @@
       <br>
       <input name="school-ids" id="school-ids" type="hidden" value="" />
       <br>
-        <input checked="checked" id="two_year" name="years" type="radio" value="2" />
+        <input id="two_year" name="years" type="radio" value="2" />
         <label for="two_year">Two-Year Schools</label>
-        <input id="four_year" name="years" type="radio" value="4" />
+        <input checked="checked" id="four_year" name="years" type="radio" value="4" />
         <label for="four_year">Four-Year Schools</label>
   <section class="app-content">
     <div class="school-search">
@@ -49,7 +49,7 @@
 
 <div class="row">
   <div class="col-md-4">
-    <%= button_tag "Compare Schools", class: "school-select btn btn-default" %>
+    <%= button_tag "Start Over", class: "start-over btn btn-primary" %>
   </div>
 </div>
 <div class="row">

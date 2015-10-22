@@ -10,9 +10,8 @@ $(function() {
     dataCall(event, url);
   });
 
-  $(".school-select").click(function(event) {
-    var url = "/pricegraph";
-    dataCall(event, url);
+  $(".start-over").click(function() {
+    location.reload();
   });
 
   function dataCall(event, url) {

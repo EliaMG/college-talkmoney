@@ -19,8 +19,6 @@ class School < ActiveRecord::Base
       end
     schools << school
     end
-    return schools
+    return schools.sort_by!(&:net_price)
   end
-
-
 end
