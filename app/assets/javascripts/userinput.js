@@ -1,29 +1,3 @@
-$(function() {
-  $(".two-year").click(function(event) {
-    var url = "/year?year=2";
-    getData(event, url);
-  });
-
-  $(".four-year").click(function(event) {
-    var url = "/year?year=4";
-    getData(event, url);
-  });
-
-  function getData(event, url) {
-    event.preventDefault();
-    $.ajax(url, {
-      type: "get",
-      success: function (data) {
-      tokenList(data);
-    }
-    });
-  }
-
-  function tokenList(data) {
-    console.log(data);
-  }
-});
-
 var app = window.app = {};
 app.Schools = function() {
   this._input = $('#school-search-txt');
@@ -64,7 +38,11 @@ app.Schools.prototype = {
   },
 
   _select: function(e, ui) {
-    this._input.val(ui.item.name);
-    return false;
+    $("#selected-schools")
+    .append(ui.item.name)
+    .append("<br>");
+// (this._input.val(ui.item.name)
+    // console.log(this);
+    // return false;
   }
 };
