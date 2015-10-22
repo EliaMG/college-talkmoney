@@ -1,24 +1,25 @@
 class School < ActiveRecord::Base
-  # require 'pry'
 
   def self.school_search(term, year)
     where('LOWER(name) LIKE :term AND years= :year', term: "%#{term.downcase}%", year: year)
   end
 
-  def self.prep_data(inc, schools)
+  def self.price_prep(inc, schools)
     ids = schools.split(',').map(&:to_i) #"22,33,444" to [22, 33, 444]
     net_price = "net_price_" + inc
-    self.query(ids, net_price)
+    self.price_query(ids, net_price)
   end
 
-  def self.query(ids, net_price)
+  def self.price_query(ids, net_price)
     schools = []
     ids.each do |id|
-      school = School.select("name", "control", "#{net_price} AS net_price").where(["id = ?", id])
+      school = School.select("name", "control", "net_price_avg", "#{net_price} AS net_price").where(["id = ?", id]).first
+      if school.net_price == 0
+        school.net_price = school.net_price_avg
+      end
     schools << school
     end
-    # binding.pry
-    return schools.flatten
+    return schools
   end
 
 

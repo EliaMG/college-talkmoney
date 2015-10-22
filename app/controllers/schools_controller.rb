@@ -9,7 +9,7 @@ class SchoolsController < ApplicationController
   end
 
   def pricegraph
-    schools = School.prep_data(params["inc"], params["school-ids"])
+    schools = School.prep_price(params["inc"], params["school-ids"])
     begin
       data = schools
       code = :ok
