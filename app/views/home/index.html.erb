@@ -28,10 +28,11 @@
   <section class="app-content">
     <div class="school-search">
       <input type="text" id="school-search-txt" autofocus>
+      <input name="school-ids" id="school-ids" type="hidden" value="" />
       <div class="results" id="school-search-results"></div>
     </div>
     <div id="selected-schools">
-    <h4>Selected schools:</h4>
+      <h4>Selected schools:</h4>
     </div>
   </section>
       <%= button_tag "Submit", class: "user_input btn btn-default" %>

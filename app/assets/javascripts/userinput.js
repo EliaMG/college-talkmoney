@@ -41,6 +41,8 @@ app.Schools.prototype = {
     $("#selected-schools")
     .append(ui.item.name)
     .append("<br>");
+    $('input:hidden[name=school-ids]').val(ui.item.id);
+
 // (this._input.val(ui.item.name)
     // console.log(this);
     // return false;
