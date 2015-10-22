@@ -6,15 +6,17 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get "/schools/search" => 'schools#search'
+  get "schools/pricegraph" => 'schools#pricegraph'
+  get 'schools/user_input' => "schools#user_input"
   # resources :schools do
   #   get :search, :on => :collection
   # end
 
-  controller :data do
-    get '/pricegraph', action: 'price_graph'
-    get '/user_input', action: 'user_input'
-    get '/year', action: 'year'
-  end
+  # controller :data do
+  #   get '/pricegraph', action: 'price_graph'
+  #   get '/user_input', action: 'user_input'
+  #   get '/year', action: 'year'
+  # end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

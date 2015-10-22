@@ -6,9 +6,9 @@
   </div>
 <div class="row">
   <div class=search-form>
-    <%= form_tag(user_input_path, method: :get, role: "user_input") do %>
+    <%= form_tag(schools_user_input_path, method: :get, role: "user_input") do %>
       <h4> Choose your annual family income level: </h4>
-        <input checked="checked" id="low_income" name="inc" type="radio" value="low" />
+        <input id="low_income" name="inc" type="radio" value="low" />
         <label for="low_income">Low-Income ($0-48k)</label>
       <br>
         <input id="mid_income" name="inc" type="radio" value="mid" />
@@ -17,9 +17,10 @@
         <input id="high_income" name="inc" type="radio" value="high" />
         <label for="high_income">High-Income ($75k+)</label>
       <br>
-        <input id="avg_income" name="inc" type="radio" value="avg" />
+        <input checked="checked" id="avg_income" name="inc" type="radio" value="avg" />
         <label for="avg_income">Don't know/Prefer not to answer</label>
       <br>
+      <input name="school-ids" id="school-ids" type="hidden" value="" />
       <br>
         <input checked="checked" id="two_year" name="years" type="radio" value="2" />
         <label for="two_year">Two-Year Schools</label>
@@ -28,7 +29,6 @@
   <section class="app-content">
     <div class="school-search">
       <input type="text" id="school-search-txt" autofocus>
-      <input name="school-ids" id="school-ids" type="hidden" value="" />
       <div class="results" id="school-search-results"></div>
     </div>
     <div id="selected-schools">

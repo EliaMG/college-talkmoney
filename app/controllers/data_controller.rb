@@ -1,15 +1,5 @@
 class DataController < ApplicationController
-  def price_graph
-    begin
-      data = mock_data
-      code = :ok
-    rescue
-      data = {}
-      code = :no_content
-      end
 
-    render json: data.as_json, code: code
-  end
 
 private
   def mock_data

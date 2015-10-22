@@ -4,10 +4,10 @@ $(function() {
   $(".user-input").click(function(event) {
     event.preventDefault();
     var inc = $(this).siblings('input:radio[name=inc]:checked').val(),
-        ids = $(this).siblings("#school-ids").val(),
-        url = "/pricegraph?inc=" + inc + "&school-ids=" +ids;
+        ids = $(this).siblings('input[name=school-ids]').val(),
+        url = "schools/pricegraph?inc=" + inc + "&school-ids=" +ids;
         console.log(url);
-    // dataCall(event, url);
+    dataCall(event, url);
   });
 
   $(".school-select").click(function(event) {
