@@ -1,6 +1,6 @@
 class School < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
-  
+
   def self.school_search(term, year)
     where('LOWER(name) LIKE :term AND years= :year', term: "%#{term.downcase}%", year: year)
   end
@@ -33,7 +33,8 @@ class School < ActiveRecord::Base
   def self.cyl_query(ids, loan, earn)
     schools = []
     ids.each do |id|
-      school = School.select("name", "loan_avg", "#{loan} AS loan", "earn_avg", "#{earn} AS earn", "p_over_25_k").where(["id = ?", id]).first
+      school = School.select("name", "loan_avg", "#{loan} AS loan", "earn_avg",
+                             "#{earn} AS earn", "p_over_25_k").where(["id = ?", id]).first
       if school.loan == 0
         school.loan = school.loan_avg
       end
