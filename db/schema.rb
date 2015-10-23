@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20151016195158) do
     t.string   "zip"
     t.float    "lat"
     t.float    "long"
-    t.integer  "control"
+    t.string   "control"
     t.integer  "years"
     t.boolean  "distance_only"
     t.integer  "net_price_avg"

@@ -92,7 +92,7 @@ chart.selectAll("rect")
 
   chart.append("g")
     .attr("class", "axis")
-    .attr("transform", "translate(0, " + (height - 15) + ")")
+    .attr("transform", "translate(0, " + (height - 10) + ")")
     .call(xAxis);
 
   chart.append("text")      // text label for the x axis
