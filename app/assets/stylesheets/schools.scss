@@ -73,3 +73,8 @@ div#selected-schools {
 div#selected-schools h4{
   font-weight: bold;
 }
+
+.popper {
+  animation: pop .2s;
+  animation-delay: .2s;
+}

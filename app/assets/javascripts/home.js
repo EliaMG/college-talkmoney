@@ -5,8 +5,9 @@ $(function() {
     event.preventDefault();
     var inc = $(this).siblings('input:radio[name=inc]:checked').val(),
         ids = $(this).siblings('input[name=school-ids]').val(),
-        price_url = "schools/pricegraph?inc=" + inc + "&school-ids=" +ids,
-        earn_url = "schools/cylinders?inc=" + inc + "&school-ids=" +ids,
+        url_params = "?inc=" + inc + "&school-ids=" +ids,
+        price_url = "schools/pricegraph" + url_params,
+        earn_url = "schools/cylinders" + url_params;
     priceCall(event, price_url);
     earnCall(event, earn_url);
   });
@@ -22,9 +23,9 @@ $(function() {
       type: "get",
       success: function (data) {
       makeBarChart(data);
-    }
+      }
     });
-  }
+  };
 
   function earnCall(event, url) {
     event.preventDefault();
@@ -32,12 +33,11 @@ $(function() {
     $.ajax(url, {
       type: "get",
       success: function (data) {
-        $(".cylinder-chart")
-        .append(data);
+        console.log(data);
       // makeCylinderChart(data);
-    }
+      }
     });
-  }
+  };
 
 
 
@@ -179,5 +179,5 @@ chart.selectAll("rect")
     d3.select("#rect"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
     d3.select("#rect2"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
   });
-  }
+};
 });
