@@ -32,7 +32,7 @@ require 'csv'
      debt_25: row[51],
      debt_10: row[52],
      p_over_25_k: row[53],
-     earn_mean: row[54],
+     earn_avg: row[54],
      earn_med: row[55],
      earn_low: row[60],
      earn_mid: row[61],
