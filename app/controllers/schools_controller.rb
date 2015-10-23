@@ -16,8 +16,19 @@ class SchoolsController < ApplicationController
     rescue
       data = {}
       code = :no_content
-      end
+    end
+    render json: data.as_json, code: code
+  end
 
+  def cylinders
+    schools = School.cyl_prep(params["inc"], params["school-ids"])
+    begin
+      data = schools
+      code = :ok
+    rescue
+      data = {}
+      code = :no_content
+    end
     render json: data.as_json, code: code
   end
 end

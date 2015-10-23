@@ -39,8 +39,9 @@ app.Schools.prototype = {
   },
 
   _select: function(e, ui) {
+    $(ui.item.name).appendTo("#selected-schools").show();
     $("#selected-schools")
-    .append(ui.item.name)
+    // .append(ui.item.name)
     .append("<br>");
     //adds a comma separated list of ids to the hidden input
     var results = $('#school-ids'),

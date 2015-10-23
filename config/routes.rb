@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get "/schools/search" => 'schools#search'
   get "schools/pricegraph" => 'schools#pricegraph'
+  get "schools/cylinders" => 'schools#cylinders'
   get 'schools/user_input' => "schools#user_input"
   # resources :schools do
   #   get :search, :on => :collection

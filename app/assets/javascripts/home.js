@@ -5,27 +5,43 @@ $(function() {
     event.preventDefault();
     var inc = $(this).siblings('input:radio[name=inc]:checked').val(),
         ids = $(this).siblings('input[name=school-ids]').val(),
-        url = "schools/pricegraph?inc=" + inc + "&school-ids=" +ids;
-        console.log(url);
-    dataCall(event, url);
+        price_url = "schools/pricegraph?inc=" + inc + "&school-ids=" +ids,
+        earn_url = "schools/cylinders?inc=" + inc + "&school-ids=" +ids,
+    priceCall(event, price_url);
+    earnCall(event, earn_url);
   });
 
   $(".start-over").click(function() {
     location.reload();
   });
 
-  function dataCall(event, url) {
+  function priceCall(event, url) {
     event.preventDefault();
     $(".bar-chart").empty();
     $.ajax(url, {
       type: "get",
       success: function (data) {
-      makeChart(data);
+      makeBarChart(data);
     }
     });
   }
 
-  function makeChart(data) {
+  function earnCall(event, url) {
+    event.preventDefault();
+    $(".cylinder-chart").empty();
+    $.ajax(url, {
+      type: "get",
+      success: function (data) {
+        $(".cylinder-chart")
+        .append(data);
+      // makeCylinderChart(data);
+    }
+    });
+  }
+
+
+
+  function makeBarChart(data) {
 
   var width = 420,
       barHeight = 22,
@@ -102,6 +118,8 @@ chart.selectAll("rect")
     .text("Average Net Price");
   };
 
+  function makeCylinderChart(data) {
+
   var svg= d3.select(".cyl-chart")
     // .append("svg")
     .attr("width", 600)
@@ -161,24 +179,5 @@ chart.selectAll("rect")
     d3.select("#rect"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
     d3.select("#rect2"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
   });
+  }
 });
-// bar.append("text")
-//   .attr("x", function(d) { return x(d.net_price) - 4; })
-//   .attr("y", barHeight / 2)
-//   .attr("dy", ".35em")
-//   .text(function(d) { return d.name; });
-// var bars = chart.selectAll("rect.bar")
-//   .data(data)
-//
-// bars.enter()
-//     .append("svg:rect")
-//     .attr("class", "bar")
-//
-// bars.exit()
-//   .transition()
-//   .duration(300)
-//   .ease("exp")
-//     .attr("width", 0)
-//     .remove()
-// .transition()
-// .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
