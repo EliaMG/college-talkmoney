@@ -76,7 +76,8 @@ chart.selectAll("rect")
         .style("top", (window.pageYOffset + matrix.f - 30) + "px")
         .select("#value")
         .html("<strong>" + d.name + "</strong> <br/>" +
-              "Net Price: $" + d.net_price.toLocaleString());
+              "Average Net Price: $" + d.net_price.toLocaleString() +
+              "<br/><em>" + d.control + "</em>");
     })
     .on("mouseout", function() {
       //Hide the tooltip
@@ -91,14 +92,14 @@ chart.selectAll("rect")
 
   chart.append("g")
     .attr("class", "axis")
-    .attr("transform", "translate(0, " + (height - 10) + ")")
+    .attr("transform", "translate(0, " + (height - 15) + ")")
     .call(xAxis);
 
   chart.append("text")      // text label for the x axis
     .attr("transform", "translate(" + (width / 2) + " ," + (height + 25) + ")")
     .style("text-anchor", "middle")
     .style("font-weight", "bold")
-    .text("Net Price");
+    .text("Average Net Price");
   };
 
   var svg= d3.select(".cyl-chart")

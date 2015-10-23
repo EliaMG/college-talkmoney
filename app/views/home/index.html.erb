@@ -5,6 +5,11 @@
     <h3><center>Discover your average cost, debt, and earnings from schools nationwide!</h3>
   </div>
 <div class="row">
+  <div class="col-md-4">
+    <%= button_tag "Start Over", class: "start-over btn btn-primary" %>
+  </div>
+</div>
+<div class="row">
   <div class=search-form>
     <%= form_tag(schools_user_input_path, method: :get, role: "user_input") do %>
       <h4> Choose your annual family income level: </h4>
@@ -21,21 +26,21 @@
         <label for="avg_income">Don't know/Prefer not to answer</label>
       <br>
       <input name="school-ids" id="school-ids" type="hidden" value="" />
-      <br>
+      <h4> Choose schools to compare: </h4>
         <input id="two_year" name="years" type="radio" value="2" />
         <label for="two_year">Two-Year Schools</label>
         <input checked="checked" id="four_year" name="years" type="radio" value="4" />
         <label for="four_year">Four-Year Schools</label>
   <section class="app-content">
     <div class="school-search">
-      <input type="text" id="school-search-txt" autofocus>
+      <input type="text" id="school-search-txt" placeholder="Type school here..."/>
       <div class="results" id="school-search-results"></div>
     </div>
     <div id="selected-schools">
       <h4>Selected schools:</h4>
     </div>
   </section>
-      <%= button_tag "Submit", class: "user-input btn btn-default" %>
+      <%= button_tag "Compare Schools", class: "user-input btn btn-default" %>
     <% end %>
   </div>
 </div>
@@ -46,12 +51,6 @@
   });
 </script>
 
-
-<div class="row">
-  <div class="col-md-4">
-    <%= button_tag "Start Over", class: "start-over btn btn-primary" %>
-  </div>
-</div>
 <div class="row">
   <svg class="bar-chart col-xs-12"></svg>
 </div>

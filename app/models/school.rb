@@ -17,7 +17,7 @@ class School < ActiveRecord::Base
       if school.net_price == 0
         school.net_price = school.net_price_avg
       end
-    schools << school
+      schools << school
     end
     return schools.sort_by!(&:net_price)
   end
