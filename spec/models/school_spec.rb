@@ -46,5 +46,17 @@ RSpec.describe School, type: :model do
       search = School.school_search("seattle", 4)
       expect(search.first.name).to eq "Seattle University"
     end
+
+    it "search finds a 2 year school" do
+      search = School.school_search("seattle", 2)
+      expect(search.first.name).to eq "Seattle Central College"
+    end
+
+    it "2 year search does not look 4 year schools" do
+      search = School.school_search("montana", 2)
+      expect(search).to be_empty
+    end
+
+
   end
 end

@@ -15,6 +15,7 @@ class School < ActiveRecord::Base
     schools = []
     ids.each do |id|
       school = School.select("name", "control", "net_price_avg", "#{net_price} AS net_price").where(["id = ?", id]).first
+
       if school.net_price == 0
         school.net_price = school.net_price_avg
       end
