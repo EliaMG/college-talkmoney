@@ -132,7 +132,7 @@ $(function() {
       .attr("width", 80)
       .attr("height",260)
       .attr("stroke","black")
-      .attr("stroke-width",2);
+      .attr("stroke-width",2.5);
 
     var ellipses = d3.select(".cyl-chart").selectAll("ellipse")
       .data(data)
@@ -143,7 +143,7 @@ $(function() {
       .attr("rx", 40)
       .attr("ry", 30)
       .attr("stroke","black")
-      .attr("stroke-width",2);   ;
+      .attr("stroke-width",2.5);   ;
 
     var rects2 = d3.select(".cyl-chart").selectAll("rect2")
       .data(data)
@@ -165,15 +165,16 @@ $(function() {
       .attr("ry", 30)
       .attr("class","ell")
       .attr("stroke","black")
-      .attr("stroke-width",2);
-    //
-    // ellipses2.on("mouseover",function(d,i){
-    //   console.log(i); d3.select(this).transition().ease("elastic").duration(1000).attr("cy",(i+2)*75);
-    //   d3.select("#rect"+i).transition().ease("elastic").duration(1000).attr("height",410-(i+2)*75).attr("y",(i+2)*75);
-    //   d3.select("#rect2"+i).transition().ease("elastic").duration(1000).attr("height",410-(i+2)*75).attr("y",(i+2)*75);
+      .attr("stroke-width",2.5);
+
+    ellipses2.on("mouseover",function(d,i){
+      console.log(i);
+      d3.select("#rect2" +i).transition().duration('200').attr("fill","yellow");
+      d3.select("#ellipse" +i).transition().duration('200').attr("fill","yellow");
+      // d3.select("#rect2"+i).transition().ease("elastic").duration(1000).attr("height",410-(i+2)*75).attr("y",(i+2)*75);
     //   d3.select(this).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("cy",410);
     //   d3.select("#rect"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
     //   d3.select("#rect2"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
-    // });
+    });
   };
 });
