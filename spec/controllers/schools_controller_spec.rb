@@ -36,7 +36,6 @@ RSpec.describe SchoolsController, type: :controller do
   describe "pricegraph function" do
     let (:school_id) {School.first.id}
     before :each do
-
       get :pricegraph, {
         "inc": "avg",
         "school-ids": school_id
@@ -65,7 +64,6 @@ RSpec.describe SchoolsController, type: :controller do
   describe "cylinders function" do
     let (:school_id) {School.first.id}
     before :each do
-
       get :cylinders, {
         "inc": "low",
         "school-ids": school_id
