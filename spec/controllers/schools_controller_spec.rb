@@ -61,4 +61,33 @@ RSpec.describe SchoolsController, type: :controller do
       end
     end
   end
+
+  describe "cylinders function" do
+    let (:school_id) {School.first.id}
+    before :each do
+
+      get :cylinders, {
+        "inc": "low",
+        "school-ids": school_id
+      }
+    end
+
+    it "should be successful" do
+      expect(response).to be_ok
+    end
+
+    it "should return a json response object" do
+      expect(response.header['Content-Type']).to include 'application/json'
+    end
+
+    context "the returned json object" do
+      it "has the right keys" do
+        data = JSON.parse response.body
+
+        %w(name loan_avg loan earn_avg earn p_over_25_k).each do |key|
+          expect(data.map(&:keys).flatten.uniq).to include key
+        end
+      end
+    end
+  end
 end
