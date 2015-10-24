@@ -62,6 +62,8 @@ RSpec.describe School, type: :model do
     end
 
     describe "self.price_query" do
+      # this is a workaround because the test db autoincrements the ids
+      # even when test records are deleted before every test run
       let (:ids) {School.pluck(:id)}
       let (:string_ids) {ids.join(",")}
 
