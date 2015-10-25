@@ -117,8 +117,17 @@ $(function() {
     //makes the initial fill color the same as the background
     var decolor = d3.rgb(222, 220, 211);
     var height = 250,
-        cylWidth = 22,
-        width = cylWidth * (data.length);
+        rectWidth = 22,
+        width = rectWidth * (data.length);
+
+    var xScale = d3.scale.ordinal()
+        .domain(d3.range(data.length))
+        .rangeRoundBands([0, width], 0.1);
+
+    var yScale = d3.scale.linear()
+        .domain([0, 100000])
+        .range([0, height]);
+
 
     var svg= d3.select(".cyl-chart")
       //adjust for dynamic-ness post-haste
