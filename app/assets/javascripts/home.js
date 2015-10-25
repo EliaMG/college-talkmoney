@@ -115,7 +115,8 @@ $(function() {
 
   function makeCylinderChart(data) {
     //makes the initial fill color the same as the background
-    var decolor = d3.rgb(222, 220, 211);
+    var decolor = d3.rgb(222, 220, 211),
+        newcolor = d3.rgb("#8D9094");
     var height = 250,
         rectWidth = 22,
         width = rectWidth * (data.length);
@@ -142,13 +143,12 @@ $(function() {
       .enter().append("rect")
       .style("fill", decolor)
       .attr("y", 150)
-      .attr("class", "rectangular")
       .attr("id", function(d,i){return "rect"+i;})
       .attr("x", function(d,i){ return (i+1)*100-40;})
       .attr("width", 80)
       .attr("height", height)
       .attr("stroke","black")
-      .attr("stroke-width",2.5);
+      .attr("stroke-width",2);
 
     // var ellipses = d3.select(".cyl-chart").selectAll("ellipse")
     //   .data(data)
@@ -165,7 +165,7 @@ $(function() {
     var rectover = d3.select(".cyl-chart").selectAll("rect2")
       .data(data)
       .enter().append("rect")
-      .style("fill", "yellow")
+      .style("fill", newcolor)
       .attr("y", 400)
       .attr("id", function(d,i){return "rectover"+i;})
       .attr("x", function(d,i){ return (i+1)*100-38;})
@@ -187,7 +187,7 @@ $(function() {
 
     rects.on("mouseover",function(d,i){
 
-      d3.select("#rectover" +i).transition().duration('2000').attr("height", height).attr("y",150);
+      d3.select("#rectover" +i).transition().duration('2000').attr("height", height-1).attr("y",150);
       // d3.select("#rect2" +i).transition().duration('200').style("fill","yellow");
       // d3.select("#ellipse" +i).transition().duration('200').style("fill","yellow");
       // d3.select("#rect2"+i).transition().ease("elastic").duration(1000).attr("height",410-(i+2)*75).attr("y",(i+2)*75);
