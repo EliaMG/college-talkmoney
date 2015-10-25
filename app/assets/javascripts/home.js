@@ -116,61 +116,71 @@ $(function() {
   function makeCylinderChart(data) {
     //makes the initial fill color the same as the background
     var decolor = d3.rgb(222, 220, 211);
+    var height = 250,
+        cylWidth = 22,
+        width = cylWidth * (data.length);
 
     var svg= d3.select(".cyl-chart")
       //adjust for dynamic-ness post-haste
-      .attr("width", 600)
-      .attr("height", 500);
+      // .attr("width", 600)
+      // .attr("height", 500);
+      .attr({"width": "70%", "height": "70%"})
+      .attr("viewBox", "0 0 " + (width + 500) + " " + (height + 300) )
+      .attr("preserveAspectRatio", "xMidYMid meet");
 
     var rects = d3.select(".cyl-chart").selectAll("rect")
       .data(data)
       .enter().append("rect")
       .style("fill", decolor)
       .attr("y", 150)
+      .attr("class", "rectangular")
       .attr("id", function(d,i){return "rect"+i;})
       .attr("x", function(d,i){ return (i+1)*100-40;})
       .attr("width", 80)
-      .attr("height",260)
+      .attr("height", height)
       .attr("stroke","black")
       .attr("stroke-width",2.5);
 
-    var ellipses = d3.select(".cyl-chart").selectAll("ellipse")
-      .data(data)
-      .enter().append("ellipse")
-      .style("fill", decolor)
-      .attr("cy", 410)
-      .attr("cx", function(d,i){ return (i+1)*100;})
-      .attr("rx", 40)
-      .attr("ry", 30)
-      .attr("stroke","black")
-      .attr("stroke-width",2.5);   ;
+    // var ellipses = d3.select(".cyl-chart").selectAll("ellipse")
+    //   .data(data)
+    //   .enter().append("ellipse")
+    //   .style("fill", decolor)
+    //   .attr("cy", 400)
+    //   .attr("cx", function(d,i){ return (i+1)*100;})
+    //   .attr("class", "cylly")
+    //   .attr("rx", 40)
+    //   .attr("ry", 30)
+    //   .attr("stroke","black")
+    //   .attr("stroke-width",2.5);   ;
 
-    var rects2 = d3.select(".cyl-chart").selectAll("rect2")
+    var rectover = d3.select(".cyl-chart").selectAll("rect2")
       .data(data)
       .enter().append("rect")
-      .style("fill", decolor)
-      .attr("y", 150)
-      .attr("id", function(d,i){return "rect2"+i;})
+      .style("fill", "yellow")
+      .attr("y", 400)
+      .attr("id", function(d,i){return "rectover"+i;})
       .attr("x", function(d,i){ return (i+1)*100-38;})
       .attr("width",76 )
-      .attr("height",260);
+      .attr("height", 0);
+    //
+    // var ellipses2 = d3.select(".cyl-chart").selectAll("ellipse1")
+    //   .data(data)
+    //   .enter().append("ellipse")
+    //   .style("fill", decolor)
+    //   .attr("class", "cylly")
+    //   .attr("cy", 150)
+    //   .attr("cx", function(d,i){ return (i+1)*100;})
+    //   .attr("rx", 40)
+    //   .attr("ry", 30)
+    //   .attr("class","ell")
+    //   .attr("stroke","black")
+    //   .attr("stroke-width",2.5);
 
-    var ellipses2 = d3.select(".cyl-chart").selectAll("ellipse1")
-      .data(data)
-      .enter().append("ellipse")
-      .style("fill", decolor)
-      .attr("cy", 150)
-      .attr("cx", function(d,i){ return (i+1)*100;})
-      .attr("rx", 40)
-      .attr("ry", 30)
-      .attr("class","ell")
-      .attr("stroke","black")
-      .attr("stroke-width",2.5);
+    rects.on("mouseover",function(d,i){
 
-    ellipses2.on("mouseover",function(d,i){
-      console.log(i);
-      d3.select("#rect2" +i).transition().duration('200').attr("fill","yellow");
-      d3.select("#ellipse" +i).transition().duration('200').attr("fill","yellow");
+      d3.select("#rectover" +i).transition().duration('2000').attr("height", height).attr("y",150);
+      // d3.select("#rect2" +i).transition().duration('200').style("fill","yellow");
+      // d3.select("#ellipse" +i).transition().duration('200').style("fill","yellow");
       // d3.select("#rect2"+i).transition().ease("elastic").duration(1000).attr("height",410-(i+2)*75).attr("y",(i+2)*75);
     //   d3.select(this).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("cy",410);
     //   d3.select("#rect"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
