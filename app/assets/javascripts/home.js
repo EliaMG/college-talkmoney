@@ -50,7 +50,7 @@ $(function() {
 
     var yScale = d3.scale.ordinal()
           .domain(d3.range(data.length))
-          .rangeRoundBands([0, height], .1)
+          .rangeRoundBands([0, height-10], .1)
 
     var xAxis = d3.svg.axis()
       .scale(xScale)
@@ -116,7 +116,9 @@ $(function() {
   function makeCylinderChart(data) {
     //makes the initial fill color the same as the background
     var decolor = d3.rgb(222, 220, 211),
-        newcolor = d3.rgb("#4DBD33");
+        earncolor = d3.rgb("#4DBD33"),
+        loancolor = d3.rgb("#FF3333");
+
     var height = 150,
         rectWidth = 22,
         width = rectWidth * (data.length);
@@ -135,7 +137,7 @@ $(function() {
     var svg= d3.select(".cyl-chart")
 
       .attr({"width": "80%", "height": "80%"})
-      .attr("viewBox", "0 0 " + (width + 50) + " " + (height + 100) )
+      .attr("viewBox", "0 0 " + (width + 50) + " " + (height + 50) )
       .attr("preserveAspectRatio", "xMidYMid meet");
 
     var svgLocation = $(".cyl-chart").offset().top;
@@ -168,7 +170,7 @@ $(function() {
     var rectover = d3.select(".cyl-chart").selectAll("rectover")
       .data(data)
       .enter().append("rect")
-      .style("fill", newcolor)
+      .style("fill", earncolor)
       .attr("id", function(d,i){return "rectover"+i;})
       .attr("y", 150)
       // .attr("y", function(d, i) {return ("rect"+i).attr("y") + ("rect"+i).attr("height")})
@@ -192,11 +194,15 @@ $(function() {
     rects.on("mouseover",function(d,i){
         // console.log(data);
 
-      d3.select("#rectover"+i).transition().duration('1000')
+      d3.select("#rectover"+i).transition().duration('800')
         .attr("height", function(d) { return yScale(d.earn); })
-        .attr("y", function(d) { return 150 - yScale(d.earn); });
+        .attr("y", function(d) { return 150 - yScale(d.earn); })
+        .style("fill", earncolor);;
 
-
+      d3.select("#rectover"+i).transition().duration('800').delay('1100')
+        .attr("height", function(d) { return yScale(d.earn-d.loan); })
+        .attr("y", function(d) { return 150 - yScale(d.earn-d.loan); })
+        .style("fill", loancolor);
 
       // d3.select("#rect2" +i).transition().duration('200').style("fill","yellow");
       // d3.select("#ellipse" +i).transition().duration('200').style("fill","yellow");
