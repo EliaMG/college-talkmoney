@@ -8,7 +8,7 @@ $(function() {
         url_params = "?inc=" + inc + "&school-ids=" +ids,
         price_url = "schools/pricegraph" + url_params,
         earn_url = "schools/cylinders" + url_params;
-    // priceCall(event, price_url);
+    priceCall(event, price_url);
     earnCall(event, earn_url);
   });
 
@@ -154,7 +154,28 @@ $(function() {
       .attr("height", 140)
       .attr("stroke","black")
       .attr("stroke-width",1);
+      // .append("text")
+      // .text(function(d) {
+      //   return "$" + d.earn.toLocaleString();
+      // })
+      // .attr("text-anchor", "middle")
+      // .attr("x", function(d,i){ return i + rectWidth;})
+      // .attr("y", 20)
+      // .attr("font-size", "20px");
+    //  .attr("x", function(d, i) {
+    //     return i * (width / data.length) + (width / data.length - barPadding) / 2;
+    //  })
+    //  .attr("y", 15)
+    // //  .attr("font-family", "sans-serif")
+    //  .attr("fill", "white");
+      // .append("text", function(d) {return "$" + d.earn.toLocaleString();});
 
+    // var textlocale
+    // var dollars = function(d, i) {
+    //
+    // }
+    // rects.append("text")
+    // .text("Test text");
     // var ellipses = d3.select(".cyl-chart").selectAll("ellipse")
     //   .data(data)
     //   .enter().append("ellipse")
@@ -190,26 +211,42 @@ $(function() {
     //   .attr("class","ell")
     //   .attr("stroke","black")
     //   .attr("stroke-width",2.5);
-
-    rects.on("mouseover",function(d,i){
-        // console.log(data);
-
+    //makes bars go up and turn green in line with earnings
+    var earnUp = function(d,i) {
       d3.select("#rectover"+i).transition().duration('800')
         .attr("height", function(d) { return yScale(d.earn); })
         .attr("y", function(d) { return 150 - yScale(d.earn); })
-        .style("fill", earncolor);;
+        .style("fill", earncolor);
+    }
 
-      d3.select("#rectover"+i).transition().duration('800').delay('1100')
+    var loanDown = function(d,i) {
+      d3.select("#rectover"+i).transition().duration('800')
         .attr("height", function(d) { return yScale(d.earn-d.loan); })
         .attr("y", function(d) { return 150 - yScale(d.earn-d.loan); })
         .style("fill", loancolor);
+    }
 
+    rects.on("mouseenter",function(d,i){
+      earnUp(d, i);
+    });
+
+    rects.on("mouseleave",function(d,i){
+      loanDown(d, i);
+    });
+
+    //so it still works even when mouseover colored rectangles
+    rectover.on("mouseenter",function(d,i){
+      earnUp(d, i);
+    });
+
+    rectover.on("mouseleave",function(d,i){
+      loanDown(d, i);
+    });
       // d3.select("#rect2" +i).transition().duration('200').style("fill","yellow");
       // d3.select("#ellipse" +i).transition().duration('200').style("fill","yellow");
       // d3.select("#rect2"+i).transition().ease("elastic").duration(1000).attr("height",410-(i+2)*75).attr("y",(i+2)*75);
     //   d3.select(this).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("cy",410);
     //   d3.select("#rect"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
     //   d3.select("#rect2"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
-    });
   };
 });
