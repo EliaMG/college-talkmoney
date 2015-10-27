@@ -142,10 +142,12 @@ $(function() {
 
     var svgLocation = $(".cyl-chart").offset().top;
 
-    var rects = d3.select(".cyl-chart").selectAll("rect")
+    var bars = svg.selectAll("g")
       .data(data)
-      .enter()
-      .append("rect")
+      .enter().append("g")
+      .attr("class", "bars");
+
+      var rects = bars.append("rect")
       .style("fill", decolor)
       .attr("id", function(d,i){return "rect"+i;})
       .attr("x", function(d,i){ return xScale(i);})
@@ -153,13 +155,14 @@ $(function() {
       .attr("width", xScale.rangeBand())
       .attr("height", 140)
       .attr("stroke","black")
-      .attr("stroke-width",1)
-      .append("text")
+      .attr("stroke-width",1);
+
+      var dollars = bars.append("text")
       .text(function(d) { return "$" + d.earn.toLocaleString();})
       .attr("text-anchor", "middle")
-      .attr("x", function(d,i){ return i + rectWidth;})
-      .attr("y", 20)
-      .attr("font-size", "20px");
+      .attr("x", function(d,i){ return i * 20 +15;})
+      .attr("y", 7.5)
+      .attr("font-size", "5px");
     //  .attr("x", function(d, i) {
     //     return i * (width / data.length) + (width / data.length - barPadding) / 2;
     //  })
@@ -186,9 +189,7 @@ $(function() {
     //   .attr("stroke","black")
     //   .attr("stroke-width",2.5);   ;
 
-    var rectover = d3.select(".cyl-chart").selectAll("rectover")
-      .data(data)
-      .enter().append("rect")
+    var rectover = bars.append("rect")
       .style("fill", earncolor)
       .attr("id", function(d,i){return "rectover"+i;})
       .attr("y", 150)
@@ -224,22 +225,22 @@ $(function() {
         .style("fill", loancolor);
     }
 
-    rects.on("mouseenter",function(d,i){
+    bars.on("mouseenter",function(d,i){
       earnUp(d, i);
     });
 
-    rects.on("mouseleave",function(d,i){
+    bars.on("mouseleave",function(d,i){
       loanDown(d, i);
     });
 
     //so it still works even when mouseover colored rectangles
-    rectover.on("mouseenter",function(d,i){
-      earnUp(d, i);
-    });
-
-    rectover.on("mouseleave",function(d,i){
-      loanDown(d, i);
-    });
+    // rectover.on("mouseenter",function(d,i){
+    //   earnUp(d, i);
+    // });
+    //
+    // rectover.on("mouseleave",function(d,i){
+    //   loanDown(d, i);
+    // });
       // d3.select("#rect2" +i).transition().duration('200').style("fill","yellow");
       // d3.select("#ellipse" +i).transition().duration('200').style("fill","yellow");
       // d3.select("#rect2"+i).transition().ease("elastic").duration(1000).attr("height",410-(i+2)*75).attr("y",(i+2)*75);
