@@ -40,10 +40,14 @@ app.Schools.prototype = {
 
   _select: function(e, ui) {
     // $(ui.item.name).appendTo("#selected-schools").show();
+    $("#sorry-data").remove();
+
     $("#selected-schools")
-    .append(ui.item.name)
-    // .addClass('popper')
-    .append("<br>");
+    .append("<li class=popper>" + ui.item.name + "</li>");
+
+
+    // .addClass('popper');
+    // .append("<br>");
     // .removeClass('popper');
 
     //adds a comma separated list of ids to the hidden input

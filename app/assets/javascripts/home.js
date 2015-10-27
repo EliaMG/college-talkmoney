@@ -39,8 +39,9 @@ $(function() {
 
   function makePriceChart(data) {
     if(data.length == 0) {
+      $("#sorry-data").remove();
       $("#selected-schools")
-      .append("Sorry no data was available, please click start over.")
+      .append("<p id=sorry-data> Sorry, please click start over or add schools.</p>")
     } else {
       var width = 420,
           barHeight = 22,
@@ -117,57 +118,58 @@ $(function() {
   };
 
   function makeCylinderChart(data) {
-    //makes the initial fill color the same as the background
-    var decolor = d3.rgb(222, 220, 211),
-        earncolor = d3.rgb("#4DBD33"),
-        loancolor = d3.rgb("#FF3333");
+    if(data.length == 0) {
+      $(".cyl-chart").empty();
+    } else {
+      //makes the initial fill color the same as the background
+      var decolor = d3.rgb(222, 220, 211),
+          earncolor = d3.rgb("#4DBD33"),
+          loancolor = d3.rgb("#FF3333");
 
-    var height = 150,
-        rectWidth = 30,
-        width = rectWidth * (data.length +1);
+      var height = 150,
+          rectWidth = 30,
+          width = rectWidth * (data.length +1);
 
-    var xScale = d3.scale.ordinal()
-        .domain(d3.range(data.length))
-        .rangeRoundBands([0, width], 0.28);
+      var xScale = d3.scale.ordinal()
+          .domain(d3.range(data.length))
+          .rangeRoundBands([0, width], 0.28);
 
-    var max = d3.max(data, function(d) { return d.earn; });
+      var max = d3.max(data, function(d) { return d.earn; });
 
-    var yScale = d3.scale.linear()
-        .domain([0, max])
-        .range([0, height-10]);
+      var yScale = d3.scale.linear()
+          .domain([0, max])
+          .range([0, height-10]);
 
+      var svg= d3.select(".cyl-chart")
+        .attr({"width": "80%", "height": "80%"})
+        .attr("viewBox", "0 0 " + (width + 120) + " " + (height + 50) )
+        .attr("preserveAspectRatio", "xMidYMid meet");
 
-    var svg= d3.select(".cyl-chart")
+      // var svgLocation = $(".cyl-chart").offset().top;
 
-      .attr({"width": "80%", "height": "80%"})
-      .attr("viewBox", "0 0 " + (width + 120) + " " + (height + 50) )
-      .attr("preserveAspectRatio", "xMidYMid meet");
-
-    var svgLocation = $(".cyl-chart").offset().top;
-
-    var bars = svg.selectAll("g")
-      .data(data)
-      .enter().append("g")
-      .attr("class", "bars");
+      var bars = svg.selectAll("g")
+        .data(data)
+        .enter().append("g")
+        .attr("class", "bars");
 
       var rects = bars.append("rect")
-      .style("fill", decolor)
-      .attr("id", function(d,i){return "rect"+i;})
-      .attr("x", function(d,i){ return xScale(i);})
-      .attr("y", 10)
-      .attr("width", xScale.rangeBand())
-      .attr("height", 140)
-      .attr("stroke","black")
-      .attr("stroke-width",1);
+        .style("fill", decolor)
+        .attr("id", function(d,i){return "rect"+i;})
+        .attr("x", function(d,i){ return xScale(i);})
+        .attr("y", 10)
+        .attr("width", xScale.rangeBand())
+        .attr("height", 140)
+        .attr("stroke","black")
+        .attr("stroke-width",1);
 
       var dollars = bars.append("text")
-      .text(function(d) { return "$" + d.earn.toLocaleString();})
-      .attr("text-anchor", "middle")
-      .attr("class", "dollars")
-      .attr("x", function(d,i){ return i * 35 +22;})
-      .attr("y", 7.5)
-      .attr("font-size", "7px")
-      .classed("hidden", true);
+        .text(function(d) { return "$" + d.earn.toLocaleString();})
+        .attr("text-anchor", "middle")
+        .attr("class", "dollars")
+        .attr("x", function(d,i){ return i * 35 +22;})
+        .attr("y", 7.5)
+        .attr("font-size", "7px")
+        .classed("hidden", true);
 
       svg.append("text")      // text label for the x axis
         .attr("transform", "translate(" + (width / 2 + 5) + " ," + (height + 15) + ")")
@@ -176,62 +178,38 @@ $(function() {
         .style("font-weight", "bold")
         .text("Student Mean Earnings and Loan Debt Comparison");
 
+      var rectover = bars.append("rect")
+        .style("fill", earncolor)
+        .attr("id", function(d,i){return "rectover"+i;})
+        .attr("y", 150)
+        // .attr("y", function(d, i) {return ("rect"+i).attr("y") + ("rect"+i).attr("height")})
+        .attr("x", function(d,i){ return xScale(i) +0.5;})
+        .attr("width", xScale.rangeBand()-1)
+        .attr("height", 0);
 
-    // var ellipses = d3.select(".cyl-chart").selectAll("ellipse")
-    //   .data(data)
-    //   .enter().append("ellipse")
-    //   .style("fill", decolor)
-    //   .attr("cy", 400)
-    //   .attr("cx", function(d,i){ return (i+1)*100;})
-    //   .attr("class", "cylly")
-    //   .attr("rx", 40)
-    //   .attr("ry", 30)
-    //   .attr("stroke","black")
-    //   .attr("stroke-width",2.5);   ;
+      //makes bars go up and turn green in line with earnings
+      var earnUp = function(d,i) {
+        d3.select("#rectover"+i).transition().duration('800')
+          .attr("height", function(d) { return yScale(d.earn); })
+          .attr("y", function(d) { return 150 - yScale(d.earn); })
+          .style("fill", earncolor);
+      }
 
-    var rectover = bars.append("rect")
-      .style("fill", earncolor)
-      .attr("id", function(d,i){return "rectover"+i;})
-      .attr("y", 150)
-      // .attr("y", function(d, i) {return ("rect"+i).attr("y") + ("rect"+i).attr("height")})
-      .attr("x", function(d,i){ return xScale(i) +0.5;})
-      .attr("width", xScale.rangeBand()-1)
-      .attr("height", 0);
-    //
-    // var ellipses2 = d3.select(".cyl-chart").selectAll("ellipse1")
-    //   .data(data)
-    //   .enter().append("ellipse")
-    //   .style("fill", decolor)
-    //   .attr("class", "cylly")
-    //   .attr("cy", 150)
-    //   .attr("cx", function(d,i){ return (i+1)*100;})
-    //   .attr("rx", 40)
-    //   .attr("ry", 30)
-    //   .attr("class","ell")
-    //   .attr("stroke","black")
-    //   .attr("stroke-width",2.5);
-    //makes bars go up and turn green in line with earnings
-    var earnUp = function(d,i) {
-      d3.select("#rectover"+i).transition().duration('800')
-        .attr("height", function(d) { return yScale(d.earn); })
-        .attr("y", function(d) { return 150 - yScale(d.earn); })
-        .style("fill", earncolor);
+      //bars go down and change to red (subtract loan amount)
+      var loanDown = function(d,i) {
+        d3.select("#rectover"+i).transition().duration('800')
+          .attr("height", function(d) { return yScale(d.earn-d.loan); })
+          .attr("y", function(d) { return 150 - yScale(d.earn-d.loan); })
+          .style("fill", loancolor);
+      }
+
+      bars.on("mouseenter",function(d,i){
+        earnUp(d, i);
+      });
+
+      bars.on("mouseleave",function(d,i){
+        loanDown(d, i);
+      });
     }
-
-    //bars go down and change to red (subtract loan amount)
-    var loanDown = function(d,i) {
-      d3.select("#rectover"+i).transition().duration('800')
-        .attr("height", function(d) { return yScale(d.earn-d.loan); })
-        .attr("y", function(d) { return 150 - yScale(d.earn-d.loan); })
-        .style("fill", loancolor);
-    }
-
-    bars.on("mouseenter",function(d,i){
-      earnUp(d, i);
-    });
-
-    bars.on("mouseleave",function(d,i){
-      loanDown(d, i);
-    });
   };
 });
