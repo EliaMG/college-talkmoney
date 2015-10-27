@@ -29,7 +29,7 @@ class CreateSchools < ActiveRecord::Migration
       t.integer :debt_10
       t.float :p_over_25_k
       t.integer :earn_avg
-      t.integer :earn_meds
+      t.integer :earn_med
       t.integer :earn_low
       t.integer :earn_mid
       t.integer :earn_high
