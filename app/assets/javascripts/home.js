@@ -1,4 +1,3 @@
-
 $(function() {
 
   $(".user-input").click(function(event) {
@@ -22,7 +21,7 @@ $(function() {
     $.ajax(url, {
       type: "get",
       success: function (data) {
-        makeBarChart(data);
+        makePriceChart(data);
       }
     });
   };
@@ -38,79 +37,83 @@ $(function() {
     });
   };
 
-  function makeBarChart(data) {
+  function makePriceChart(data) {
+    if(data.length == 0) {
+      $("#selected-schools")
+      .append("Sorry no data was available, please click start over.")
+    } else {
+      var width = 420,
+          barHeight = 22,
+          height = barHeight * (data.length + 2);
 
-    var width = 420,
-        barHeight = 22,
-        height = barHeight * (data.length + 2);
+      var xScale = d3.scale.linear()
+          .domain([ 0, data[data.length - 1].net_price ])
+          .range([ 0, width]);
 
-    var xScale = d3.scale.linear()
-        .domain([ 0, data[data.length - 1].net_price ])
-        .range([ 0, width]);
+      var yScale = d3.scale.ordinal()
+            .domain(d3.range(data.length))
+            .rangeRoundBands([0, height-10], .1)
 
-    var yScale = d3.scale.ordinal()
-          .domain(d3.range(data.length))
-          .rangeRoundBands([0, height-10], .1)
+      var xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient("bottom")
+        .ticks(6);
 
-    var xAxis = d3.svg.axis()
-      .scale(xScale)
-      .orient("bottom")
-      .ticks(6);
+      var chart = d3.select(".bar-chart")
+        .attr({"width": "70%", "height": "70%"})
+        .attr("viewBox", "0 0 " + (width + 100) + " " + (height + 50) )
+        .attr("preserveAspectRatio", "xMidYMid meet");
 
-    var chart = d3.select(".bar-chart")
-      .attr({"width": "70%", "height": "70%"})
-      .attr("viewBox", "0 0 " + (width + 100) + " " + (height + 50) )
-      .attr("preserveAspectRatio", "xMidYMid meet");
+      chart.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", function(d, i) {
+          return (i * yScale.rangeBand());
+        })
+        .attr("height", yScale.rangeBand() - 3)
+        .attr("width", 0)
+        .attr("fill", function(d, i) {
+          return "rgb(25, " + (100 + i * 30) + ", 35)";
+        })
+        // getscreenCTM tooltip placement help from: http://stackoverflow.com/questions/16256454/d3-js-position-tooltips-using-element-position-not-mouse-position
+        //toLocaleString returns the number with commas
+        .on("mouseover", function(d) {
+        var matrix = this.getScreenCTM()
+        .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
 
-    chart.selectAll("rect")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("x", 0)
-      .attr("y", function(d, i) {
-        return (i * yScale.rangeBand());
-      })
-      .attr("height", yScale.rangeBand() - 3)
-      .attr("width", 0)
-      .attr("fill", function(d, i) {
-        return "rgb(25, " + (100 + i * 30) + ", 35)";
-      })
-      // getscreenCTM tooltip placement help from: http://stackoverflow.com/questions/16256454/d3-js-position-tooltips-using-element-position-not-mouse-position
-      //toLocaleString returns the number with commas
-      .on("mouseover", function(d) {
-      var matrix = this.getScreenCTM()
-      .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
+        d3.select("#tooltip")
+          .classed("hidden", false)
+          .style("left", (window.pageXOffset + matrix.e + 30) + "px")
+          .style("top", (window.pageYOffset + matrix.f - 30) + "px")
+          .select("#value")
+          .html("<strong>" + d.name + "</strong> <br/>" +
+                "Average Net Price: $" + d.net_price.toLocaleString() +
+                "<br/><em>" + d.control + "</em>");
+        })
+        .on("mouseout", function() {
+          //Hide the tooltip
+          d3.select("#tooltip").classed("hidden", true);
+        })
+        .transition()
+          .delay(function(d, i) { return i * 100; })
+        .duration(1000)
+        .attr("width", function(d) {
+          return xScale(d.net_price);
+        });
 
-      d3.select("#tooltip")
-        .classed("hidden", false)
-        .style("left", (window.pageXOffset + matrix.e + 30) + "px")
-        .style("top", (window.pageYOffset + matrix.f - 30) + "px")
-        .select("#value")
-        .html("<strong>" + d.name + "</strong> <br/>" +
-              "Average Net Price: $" + d.net_price.toLocaleString() +
-              "<br/><em>" + d.control + "</em>");
-      })
-      .on("mouseout", function() {
-        //Hide the tooltip
-        d3.select("#tooltip").classed("hidden", true);
-      })
-      .transition()
-        .delay(function(d, i) { return i * 100; })
-      .duration(1000)
-      .attr("width", function(d) {
-        return xScale(d.net_price);
-      });
+      chart.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0, " + (height - 10) + ")")
+        .call(xAxis);
 
-    chart.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0, " + (height - 10) + ")")
-      .call(xAxis);
-
-    chart.append("text")      // text label for the x axis
-      .attr("transform", "translate(" + (width / 2) + " ," + (height + 25) + ")")
-      .style("text-anchor", "middle")
-      .style("font-weight", "bold")
-      .text("Average Net Price");
+      chart.append("text")      // text label for the x axis
+        .attr("transform", "translate(" + (width / 2) + " ," + (height + 25) + ")")
+        .style("text-anchor", "middle")
+        .style("font-weight", "bold")
+        .text("Average Net Price");
+    }
   };
 
   function makeCylinderChart(data) {
@@ -160,31 +163,20 @@ $(function() {
       var dollars = bars.append("text")
       .text(function(d) { return "$" + d.earn.toLocaleString();})
       .attr("text-anchor", "middle")
+      .attr("class", "dollars")
       .attr("x", function(d,i){ return i * 35 +22;})
       .attr("y", 7.5)
-      .attr("font-size", "7px");
+      .attr("font-size", "7px")
+      .classed("hidden", true);
 
       svg.append("text")      // text label for the x axis
-        .attr("transform", "translate(" + (width / 2) + " ," + (height + 20) + ")")
+        .attr("transform", "translate(" + (width / 2 + 5) + " ," + (height + 15) + ")")
         .style("text-anchor", "middle")
+        .attr("font-size", ".5em")
         .style("font-weight", "bold")
-        .attr("font-size", "1rem");
-        .text("Enrolled Student Mean Earnings and Loan Debt Comparison");
+        .text("Student Mean Earnings and Loan Debt Comparison");
 
-    //  .attr("x", function(d, i) {
-    //     return i * (width / data.length) + (width / data.length - barPadding) / 2;
-    //  })
-    //  .attr("y", 15)
-    // //  .attr("font-family", "sans-serif")
-    //  .attr("fill", "white");
-      // .append("text", function(d) {return "$" + d.earn.toLocaleString();});
 
-    // var textlocale
-    // var dollars = function(d, i) {
-    //
-    // }
-    // rects.append("text")
-    // .text("Test text");
     // var ellipses = d3.select(".cyl-chart").selectAll("ellipse")
     //   .data(data)
     //   .enter().append("ellipse")
@@ -226,6 +218,7 @@ $(function() {
         .style("fill", earncolor);
     }
 
+    //bars go down and change to red (subtract loan amount)
     var loanDown = function(d,i) {
       d3.select("#rectover"+i).transition().duration('800')
         .attr("height", function(d) { return yScale(d.earn-d.loan); })
@@ -240,20 +233,5 @@ $(function() {
     bars.on("mouseleave",function(d,i){
       loanDown(d, i);
     });
-
-    //so it still works even when mouseover colored rectangles
-    // rectover.on("mouseenter",function(d,i){
-    //   earnUp(d, i);
-    // });
-    //
-    // rectover.on("mouseleave",function(d,i){
-    //   loanDown(d, i);
-    // });
-      // d3.select("#rect2" +i).transition().duration('200').style("fill","yellow");
-      // d3.select("#ellipse" +i).transition().duration('200').style("fill","yellow");
-      // d3.select("#rect2"+i).transition().ease("elastic").duration(1000).attr("height",410-(i+2)*75).attr("y",(i+2)*75);
-    //   d3.select(this).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("cy",410);
-    //   d3.select("#rect"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
-    //   d3.select("#rect2"+i).transition().delay(1000+(i+1)*300).duration((i+1)*600).attr("height",0).attr("y",410);
   };
 });
