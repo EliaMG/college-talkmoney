@@ -153,15 +153,13 @@ $(function() {
       .attr("width", xScale.rangeBand())
       .attr("height", 140)
       .attr("stroke","black")
-      .attr("stroke-width",1);
-      // .append("text")
-      // .text(function(d) {
-      //   return "$" + d.earn.toLocaleString();
-      // })
-      // .attr("text-anchor", "middle")
-      // .attr("x", function(d,i){ return i + rectWidth;})
-      // .attr("y", 20)
-      // .attr("font-size", "20px");
+      .attr("stroke-width",1)
+      .append("text")
+      .text(function(d) { return "$" + d.earn.toLocaleString();})
+      .attr("text-anchor", "middle")
+      .attr("x", function(d,i){ return i + rectWidth;})
+      .attr("y", 20)
+      .attr("font-size", "20px");
     //  .attr("x", function(d, i) {
     //     return i * (width / data.length) + (width / data.length - barPadding) / 2;
     //  })
