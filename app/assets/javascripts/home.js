@@ -120,12 +120,12 @@ $(function() {
         loancolor = d3.rgb("#FF3333");
 
     var height = 150,
-        rectWidth = 22,
-        width = rectWidth * (data.length);
+        rectWidth = 30,
+        width = rectWidth * (data.length +1);
 
     var xScale = d3.scale.ordinal()
         .domain(d3.range(data.length))
-        .rangeRoundBands([0, width], 0.25);
+        .rangeRoundBands([0, width], 0.28);
 
     var max = d3.max(data, function(d) { return d.earn; });
 
@@ -137,7 +137,7 @@ $(function() {
     var svg= d3.select(".cyl-chart")
 
       .attr({"width": "80%", "height": "80%"})
-      .attr("viewBox", "0 0 " + (width + 50) + " " + (height + 50) )
+      .attr("viewBox", "0 0 " + (width + 120) + " " + (height + 50) )
       .attr("preserveAspectRatio", "xMidYMid meet");
 
     var svgLocation = $(".cyl-chart").offset().top;
@@ -160,9 +160,17 @@ $(function() {
       var dollars = bars.append("text")
       .text(function(d) { return "$" + d.earn.toLocaleString();})
       .attr("text-anchor", "middle")
-      .attr("x", function(d,i){ return i * 20 +15;})
+      .attr("x", function(d,i){ return i * 35 +22;})
       .attr("y", 7.5)
-      .attr("font-size", "5px");
+      .attr("font-size", "7px");
+
+      svg.append("text")      // text label for the x axis
+        .attr("transform", "translate(" + (width / 2) + " ," + (height + 20) + ")")
+        .style("text-anchor", "middle")
+        .style("font-weight", "bold")
+        .attr("font-size", "1rem");
+        .text("Enrolled Student Mean Earnings and Loan Debt Comparison");
+
     //  .attr("x", function(d, i) {
     //     return i * (width / data.length) + (width / data.length - barPadding) / 2;
     //  })
