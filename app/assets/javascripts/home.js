@@ -172,11 +172,10 @@ $(function() {
         .classed("hidden", true);
 
       svg.append("text")      // text label for the x axis
-        .attr("transform", "translate(" + (width / 2 + 25) + " ," + (height + 15) + ")")
-        .style("text-anchor", "middle")
-        .attr("font-size", ".5em")
-        .style("font-weight", "bold")
-        .html("Students' Average Annual Earnings - Average Loan Amount");
+        .attr("transform", "translate(" + (10) + " ," + (height + 15) + ")")
+        .style("text-anchor", "start")
+        .attr("id", "earnings-loans")
+        .html("Average Annual Earnings - Average Loan Debt");
 
       var rectover = bars.append("rect")
         .style("fill", earncolor)

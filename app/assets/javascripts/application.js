@@ -16,5 +16,4 @@
 //= require bootstrap-sprockets
 //= require d3
 //= require jquery-ui/autocomplete
-//= require jquery-ui/tooltip
 //= require_tree .
