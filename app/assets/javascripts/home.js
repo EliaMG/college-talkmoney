@@ -21,7 +21,7 @@ $(function() {
     $.ajax(url, {
       type: "get",
       success: function (data) {
-        makePriceChart(data);
+        makePriceChart(data, "net_price");
       }
     });
   };
@@ -37,7 +37,7 @@ $(function() {
     });
   };
 
-  function makePriceChart(data) {
+  function makePriceChart(data, data_type) {
     if(data.length == 0) {
       $("#sorry-data").remove();
       $("#selected-schools")
@@ -47,9 +47,10 @@ $(function() {
           barHeight = 22,
           height = barHeight * (data.length + 2);
 
+      var max = d3.max(data, function(d) { return d[data_type]; });
       var xScale = d3.scale.linear()
-          .domain([ 0, data[data.length - 1].net_price ])
-          .range([ 0, width]);
+          .domain([0, max])
+          .range([0, width]);
 
       var yScale = d3.scale.ordinal()
             .domain(d3.range(data.length))
@@ -90,7 +91,7 @@ $(function() {
           .style("top", (window.pageYOffset + matrix.f - 30) + "px")
           .select("#value")
           .html("<strong>" + d.name + "</strong> <br/>" +
-                "Average Net Price: $" + d.net_price.toLocaleString() +
+                "Average Net Price: $" + d[data_type].toLocaleString() +
                 "<br/><em>" + d.control + "</em>");
         })
         .on("mouseout", function() {
@@ -101,7 +102,7 @@ $(function() {
           .delay(function(d, i) { return i * 100; })
         .duration(1000)
         .attr("width", function(d) {
-          return xScale(d.net_price);
+          return xScale(d[data_type]);
         });
 
       var axis = chart.append("g")
