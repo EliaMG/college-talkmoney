@@ -166,7 +166,7 @@ $(function() {
         .text(0)
         .attr("text-anchor", "middle")
         .attr("id", function(d,i){return "dollar"+i;})
-        .attr("x", function(d,i){ return i * 35 +22;})
+        .attr("x", function(d,i){ return +$("#rect" +i).attr("x") +10})
         .attr("y", 7.5)
         .attr("font-size", "7px")
         .classed("hidden", true);
