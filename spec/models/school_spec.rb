@@ -43,7 +43,7 @@ RSpec.describe School, type: :model do
             earn_avg: 35345, earn_low: 0)
     end
 
-    describe "self.school_search" do
+    context "self.school_search" do
 
       it "search finds a 4 year school" do
         search = School.school_search("seattle", 4)
@@ -61,83 +61,72 @@ RSpec.describe School, type: :model do
       end
     end
 
-    describe "self.price_query" do
+    context "self.data_query" do
       # this is a workaround because the test db autoincrements the ids
       # even when test records are deleted before every test run
       let (:ids) {School.pluck(:id)}
-      let (:string_ids) {ids.join(",")}
 
-      it "returns schools sorted by net price" do
-        schools = School.price_query(ids, "net_price_low")
+      it "returns schools by id" do
+        schools = School.data_query(ids, "net_price_low", "loan_low", "earn_low")
 
-        expect(schools.first.name).to eq "Seattle Central College"
-        expect(schools.last.name).to eq "Seattle University"
+        expect(schools.count).to eq 3
       end
 
       it "returns net_price_avg if net_price_low is 0" do
-        schools = School.price_query(ids, "net_price_low")
+        schools = School.data_query(ids, "net_price_low", "loan_low", "earn_low")
 
-        expect(schools[1].net_price).to eq 3345
+        expect(schools[1].price).to eq 3345
       end
-
-      it "formats input correctly using the price_prep method" do
-        schools = School.price_prep("low", string_ids)
-
-        expect(schools.first.name).to eq "Seattle Central College"
-        expect(schools.last.name).to eq "Seattle University"
-      end
-
-      it "won't return duplicate schools" do
-        double_string = string_ids + "," + string_ids
-        schools = School.price_prep("low", double_string)
-
-        expect(schools.length).to eq 3
-      end
-
-    end
-
-    describe "self.cyl_query" do
-      let (:ids) {School.pluck(:id)}
-      let (:string_ids) {ids.join(",")}
 
       it "returns loan_avg if loan_low is 0" do
-        schools = School.cyl_query(ids, "loan_low", "earn_low")
+        schools = School.data_query(ids, "net_price_low", "loan_low", "earn_low")
 
-          expect(schools.last.loan).to eq 12345
+        expect(schools.last.loan).to eq 12345
       end
 
       it "returns earn_avg if earn_low is 0" do
-          schools = School.cyl_query(ids, "loan_low", "earn_low")
+        schools = School.data_query(ids, "net_price_low", "loan_low", "earn_low")
 
         expect(schools.last.earn).to eq 35345
       end
 
-      it "returns both loan_avg and loan if both available" do
-        schools = School.cyl_query(ids, "loan_low", "earn_low")
+      it "returns both net_price_avg and price if both available" do
+        schools = School.data_query(ids, "net_price_low", "loan_low", "earn_low")
 
-          expect(schools.first.loan_avg).to eq 25000
-          expect(schools.first.loan).to eq 23000 #converts passed in param to loan
+        expect(schools.first.net_price_avg).to eq 33557
+        expect(schools.first.price).to eq 28004
+      end
+
+      it "returns both loan_avg and loan if both available" do
+        schools = School.data_query(ids, "net_price_low", "loan_low", "earn_low")
+
+        expect(schools.first.loan_avg).to eq 25000
+        expect(schools.first.loan).to eq 23000 #converts passed in param to loan
       end
 
       it "returns both earn_avg and earn if both available" do
-          schools = School.cyl_query(ids, "loan_low", "earn_low")
+        schools = School.data_query(ids, "net_price_low", "loan_low", "earn_low")
 
         expect(schools.first.earn_avg).to eq 45300
         expect(schools.first.earn).to eq 48900
       end
+    end
 
-      it "formats input correctly using the cyl_prep method" do
-        schools = School.cyl_prep("low", string_ids)
+    context "data prep method" do
+      let (:ids) {School.pluck(:id)}
+      let (:string_ids) {ids.join(",")}
+
+      it "formats input correctly using the data_prep method" do
+        schools = School.data_prep("low", string_ids)
 
         expect(schools.count).to eq 3
-        expect(schools.last.name).to eq "Seattle Central College"
       end
 
       it "won't return duplicate schools" do
         double_string = string_ids + "," + string_ids
-        schools = School.cyl_prep("low", double_string)
+        schools = School.data_prep("low", double_string)
 
-        expect(schools.length).to eq 3
+        expect(schools.count).to eq 3
       end
     end
   end
