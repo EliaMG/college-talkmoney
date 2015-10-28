@@ -9,20 +9,8 @@ class SchoolsController < ApplicationController
     end
   end
 
-  def pricegraph
-    schools = School.price_prep(params["inc"], params["school-ids"])
-    begin
-      data = schools
-      code = :ok
-    rescue
-      data = {}
-      code = :no_content
-    end
-    render json: data.as_json, code: code
-  end
-
-  def cylinders
-    schools = School.cyl_prep(params["inc"], params["school-ids"])
+  def getschools
+    schools = School.data_prep(params["inc"], params["school-ids"])
     begin
       data = schools
       code = :ok
