@@ -234,6 +234,16 @@ $(function() {
         loanDown(d, i);
         tweenDown(d, i);
       });
+
+      bars.on("mousedown",function(d,i){
+        earnUp(d, i);
+        tweenUp(d, i);
+      });
+
+      bars.on("mouseup",function(d,i){
+        loanDown(d, i);
+        tweenDown(d, i);
+      });
     }
   };
 });
