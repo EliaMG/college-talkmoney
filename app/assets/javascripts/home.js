@@ -172,17 +172,16 @@ $(function() {
         .classed("hidden", true);
 
       svg.append("text")      // text label for the x axis
-        .attr("transform", "translate(" + (width / 2 + 5) + " ," + (height + 15) + ")")
+        .attr("transform", "translate(" + (width / 2 + 25) + " ," + (height + 15) + ")")
         .style("text-anchor", "middle")
         .attr("font-size", ".5em")
         .style("font-weight", "bold")
-        .text("Student Mean Earnings and Loan Debt Comparison");
+        .html("Students' Average Annual Earnings - Average Loan Amount");
 
       var rectover = bars.append("rect")
         .style("fill", earncolor)
         .attr("id", function(d,i){return "rectover"+i;})
         .attr("y", 150)
-        // .attr("y", function(d, i) {return ("rect"+i).attr("y") + ("rect"+i).attr("height")})
         .attr("x", function(d,i){ return xScale(i) +0.5;})
         .attr("width", xScale.rangeBand()-1)
         .attr("height", 0);
@@ -228,11 +227,24 @@ $(function() {
       bars.on("mouseenter",function(d,i){
         earnUp(d, i);
         tweenUp(d, i);
+        var max_wide = $("#rect" + (data.length - 1)).offset().left;
+        var matrix = this.getScreenCTM()
+        .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
+
+        d3.select("#tooltip")
+          .classed("hidden", false)
+          .style("left", (max_wide + 100) + "px")
+          .style("top", (window.pageYOffset + matrix.f) + "px")
+          .select("#value")
+          .html("<strong>" + d.name + "</strong> <br/>" +
+                "Average Earnings: $" + d.earn.toLocaleString() +
+                "<br/> Average Loan: $" + d.loan.toLocaleString());
       });
 
       bars.on("mouseleave",function(d,i){
         loanDown(d, i);
         tweenDown(d, i);
+        d3.select("#tooltip").classed("hidden", true);
       });
 
       bars.on("mousedown",function(d,i){

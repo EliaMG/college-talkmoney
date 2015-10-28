@@ -14,9 +14,7 @@ svg {
   max-width: 1000px;
   margin: 0 auto;
 }
-// .bar-chart rect {
-//   fill: #17692F;
-// }
+
 .fa-info {
   padding-top: 5px;
 }
@@ -55,7 +53,7 @@ svg {
   width: 200px;
   height: auto;
   padding: 10px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
