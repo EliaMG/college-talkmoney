@@ -7,6 +7,7 @@ class School < ActiveRecord::Base
 
   def self.price_prep(inc, schools)
     ids = schools.split(',').map(&:to_i) #"22,33,444" to [22, 33, 444]
+    ids.uniq! # removes duplicates
     net_price = "net_price_" + inc #avg to net_price_avg -column name
     self.price_query(ids, net_price)
   end
@@ -26,6 +27,7 @@ class School < ActiveRecord::Base
 
   def self.cyl_prep(inc, schools)
     ids = schools.split(',').map(&:to_i) #"22,33,444" to [22, 33, 444]
+    ids.uniq!
     loan = "loan_" + inc #avg to loan_avg -column name
     earn = "earn_" + inc
     self.cyl_query(ids, loan, earn)
