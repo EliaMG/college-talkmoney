@@ -41,6 +41,10 @@ svg {
   shape-rendering: crispEdges;
 }
 
+.axis text {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .svg text {
   fill: black;
   font-weight: bold;

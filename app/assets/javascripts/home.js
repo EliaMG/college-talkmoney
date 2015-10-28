@@ -104,13 +104,13 @@ $(function() {
           return xScale(d.net_price);
         });
 
-      chart.append("g")
+      var axis = chart.append("g")
         .attr("class", "axis")
-        .attr("transform", "translate(0, " + (height - 10) + ")")
+        .attr("transform", "translate(0, " + (height - 25) + ")")
         .call(xAxis);
 
-      chart.append("text")      // text label for the x axis
-        .attr("transform", "translate(" + (width / 2) + " ," + (height + 25) + ")")
+      axis.append("text")      // text label for the x axis
+        .attr("transform", "translate(" + (width / 2) + " ," + (35) + ")")
         .style("text-anchor", "middle")
         .style("font-weight", "bold")
         .text("Average Net Price");
