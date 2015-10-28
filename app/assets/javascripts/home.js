@@ -163,9 +163,9 @@ $(function() {
         .attr("stroke-width",1);
 
       var dollars = bars.append("text")
-        .text(function(d) { return "$" + d.earn.toLocaleString();})
+        .text(0)
         .attr("text-anchor", "middle")
-        .attr("class", "dollars")
+        .attr("id", function(d,i){return "dollar"+i;})
         .attr("x", function(d,i){ return i * 35 +22;})
         .attr("y", 7.5)
         .attr("font-size", "7px")
@@ -195,6 +195,28 @@ $(function() {
           .style("fill", earncolor);
       }
 
+      var tweenUp = function(d,i) {
+        d3.select("#dollar"+i).classed("hidden", false)
+        .transition()
+        .duration('800')
+        .tween("text", textTween(d.earn));
+      }
+
+      var tweenDown = function(d,i) {
+        d3.select("#dollar"+i).transition()
+        .duration('800')
+        .tween("text", textTween(d.earn - d.loan));
+      }
+
+      function textTween(newVal){
+        return function() {
+          var oldVal = 0;
+          var dollar = "$";
+          var interp = d3.interpolateRound(oldVal, newVal);
+          return function(t) { this.textContent = dollar + interp(t).toLocaleString(); };
+        }
+      }
+
       //bars go down and change to red (subtract loan amount)
       var loanDown = function(d,i) {
         d3.select("#rectover"+i).transition().duration('800')
@@ -205,10 +227,12 @@ $(function() {
 
       bars.on("mouseenter",function(d,i){
         earnUp(d, i);
+        tweenUp(d, i);
       });
 
       bars.on("mouseleave",function(d,i){
         loanDown(d, i);
+        tweenDown(d, i);
       });
     }
   };
