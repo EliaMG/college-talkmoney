@@ -4,34 +4,22 @@ $(function() {
     event.preventDefault();
     var inc = $(this).siblings('input:radio[name=inc]:checked').val(),
         ids = $(this).siblings('input[name=school-ids]').val(),
-        url_params = "?inc=" + inc + "&school-ids=" +ids,
-        price_url = "schools/pricegraph" + url_params,
-        earn_url = "schools/cylinders" + url_params;
-    priceCall(event, price_url);
-    earnCall(event, earn_url);
+        url = "schools/getschools?inc=" + inc + "&school-ids=" +ids;
+    dataCall(event, url);
   });
 
   $(".start-over").click(function() {
     location.reload();
   });
 
-  function priceCall(event, url) {
+  function dataCall(event, url) {
     event.preventDefault();
     $(".bar-chart").empty();
-    $.ajax(url, {
-      type: "get",
-      success: function (data) {
-        makePriceChart(data, "net_price");
-      }
-    });
-  };
-
-  function earnCall(event, url) {
-    event.preventDefault();
     $(".cyl-chart").empty();
     $.ajax(url, {
       type: "get",
       success: function (data) {
+        makePriceChart(data, "price");
         makeCylinderChart(data);
       }
     });
