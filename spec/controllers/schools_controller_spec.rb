@@ -88,4 +88,30 @@ RSpec.describe SchoolsController, type: :controller do
       end
     end
   end
+
+  describe "handles user hitting submit with no schools" do
+
+    it "does not let pricegraph break the page" do
+      get :pricegraph, {
+        "inc": "low",
+        "school-ids": ""
+      }
+      data = JSON.parse response.body
+
+      expect(response).to be_ok
+      expect(data.length).to eq 0
+    end
+
+    it "does not let cylinder graph break the page" do
+      get :cylinders, {
+        "inc": "low",
+        "school-ids": ""
+      }
+      data = JSON.parse response.body
+
+      expect(response).to be_ok
+      expect(data.length).to eq 0
+    end
+
+  end
 end

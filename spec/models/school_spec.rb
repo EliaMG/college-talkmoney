@@ -87,6 +87,13 @@ RSpec.describe School, type: :model do
         expect(schools.last.name).to eq "Seattle University"
       end
 
+      it "won't return duplicate schools" do
+        double_string = string_ids + "," + string_ids
+        schools = School.price_prep("low", double_string)
+
+        expect(schools.length).to eq 3
+      end
+
     end
 
     describe "self.cyl_query" do
@@ -122,8 +129,15 @@ RSpec.describe School, type: :model do
       it "formats input correctly using the cyl_prep method" do
         schools = School.cyl_prep("low", string_ids)
 
-        expect(schools.first.name).to eq "Seattle University"
+        expect(schools.count).to eq 3
         expect(schools.last.name).to eq "Seattle Central College"
+      end
+
+      it "won't return duplicate schools" do
+        double_string = string_ids + "," + string_ids
+        schools = School.cyl_prep("low", double_string)
+
+        expect(schools.length).to eq 3
       end
     end
   end
