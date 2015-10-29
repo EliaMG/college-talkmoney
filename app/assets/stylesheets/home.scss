@@ -9,6 +9,7 @@ svg {
   width: 75%;
   max-width: 1000px;
   margin: 0 auto;
+  cursor: pointer;
 }
 
 #switch-buttons {
@@ -37,12 +38,16 @@ margin: 20px;
   text-anchor: end;
 }
 
+.fa {
+  cursor: pointer;
+}
+
 .fa-sort {
   padding-left: 10px;
   font-size: 24px;
 }
 
-.fa-sort:hover {
+.fa:hover {
   color: #0066FF;
 }
 
@@ -91,4 +96,11 @@ margin: 20px;
  text#earnings-loans {
   font-size: .45em;
   font-weight: bold;
+}
+
+#back-to-top  {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
 }
