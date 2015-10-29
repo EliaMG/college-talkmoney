@@ -19,13 +19,21 @@ $(function() {
     $.ajax(url, {
       type: "get",
       success: function (data) {
-        makePriceChart(data, "price");
+        makePriceChart(data, "price", "Average Net Price");
+        $(".earn-switch").click(function(){
+          $(".bar-chart").empty();
+          makePriceChart(data, "earn", "Average Annual Earnings" )
+        });
+        $(".loan-switch").click(function(){
+          $(".bar-chart").empty();
+          makePriceChart(data, "loan", "Average Loan Debt")
+        });
         makeCylinderChart(data);
       }
     });
   };
 
-  function makePriceChart(data, data_type) {
+  function makePriceChart(data, data_type, text_type) {
     if(data.length == 0) {
       $("#sorry-data").remove();
       $("#selected-schools")
@@ -79,7 +87,7 @@ $(function() {
           .style("top", (window.pageYOffset + matrix.f - 30) + "px")
           .select("#value")
           .html("<strong>" + d.name + "</strong> <br/>" +
-                "Average Net Price: $" + d[data_type].toLocaleString() +
+                text_type + ": $" + d[data_type].toLocaleString() +
                 "<br/><em>" + d.control + "</em>");
         })
         .on("mouseout", function() {
@@ -102,7 +110,7 @@ $(function() {
         .attr("transform", "translate(" + (width / 2) + " ," + (35) + ")")
         .style("text-anchor", "middle")
         .style("font-weight", "bold")
-        .text("Average Net Price");
+        .text(text_type);
     }
   };
 

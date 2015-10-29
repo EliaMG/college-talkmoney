@@ -1,3 +1,3 @@
-  $(".fa-info").on('click', function() {
+  $(".fa-info").click(function() {
      $("#aboutModal").modal();
   });
