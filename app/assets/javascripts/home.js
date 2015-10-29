@@ -2,8 +2,8 @@ $(function() {
 
   $(".user-input").click(function(event) {
     event.preventDefault();
-    var inc = $(this).siblings('input:radio[name=inc]:checked').val(),
-        ids = $(this).siblings('input[name=school-ids]').val(),
+    var inc = $('input:radio[name=inc]:checked').val(),
+        ids = $('input[name=school-ids]').val(),
         url = "schools/getschools?inc=" + inc + "&school-ids=" +ids;
     dataCall(event, url);
   });
