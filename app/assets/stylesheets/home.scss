@@ -11,6 +11,14 @@ svg {
   margin: 0 auto;
 }
 
+#switch-buttons {
+margin: 20px;
+}
+
+.bar-chart {
+  margin-left: 10px;
+}
+
 .earn-bar:hover {
   fill: #00FF11;
 }
@@ -27,6 +35,15 @@ svg {
   fill: #000;
   font: 1em sans-serif;
   text-anchor: end;
+}
+
+.fa-sort {
+  padding-left: 10px;
+  font-size: 24px;
+}
+
+.fa-sort:hover {
+  color: #0066FF;
 }
 
 .axis path,

@@ -128,9 +128,37 @@ $(function() {
 
       axis.append("text")      // text label for the x axis
         .attr("transform", "translate(" + (width / 2) + " ," + (35) + ")")
+        .attr("class", "chart-label")
         .style("text-anchor", "middle")
         .style("font-weight", "bold")
-        .text(text_type);
+        .html(text_type);
+
+      var sortOrder = false;
+
+      var sortBars = function() {
+        sortOrder = !sortOrder;
+
+        chart.selectAll("rect")
+        .sort(function(a, b) {
+          if (sortOrder) {
+            return a[data_type]- b[data_type];
+          } else {
+            return b[data_type]- a[data_type];
+          }
+        })
+        .transition()
+        .duration(750)
+        .delay(function(d, i) { return i * 50; })
+        .attr("y", function(d,i) {
+          return i * yScale.rangeBand();
+        });
+      };
+
+      $(".fa-sort").on("click", function() {
+        sortBars();
+      });
+
+      $('.fa-sort').tooltip();
     }
   };
 
@@ -162,14 +190,12 @@ $(function() {
         .attr("viewBox", "0 0 " + (width + 120) + " " + (height + 50) )
         .attr("preserveAspectRatio", "xMidYMid meet");
 
-      // var svgLocation = $(".cyl-chart").offset().top;
-
       var bars = svg.selectAll("g")
         .data(data)
         .enter().append("g")
         .attr("class", "bars");
 
-      var rects = bars.append("rect")
+      bars.append("rect")
         .style("fill", decolor)
         .attr("id", function(d,i){return "rect"+i;})
         .attr("x", function(d,i){ return xScale(i);})
@@ -179,7 +205,7 @@ $(function() {
         .attr("stroke","black")
         .attr("stroke-width",1);
 
-      var dollars = bars.append("text")
+      bars.append("text")
         .text(0)
         .attr("text-anchor", "middle")
         .attr("id", function(d,i){return "dollar"+i;})
@@ -194,7 +220,7 @@ $(function() {
         .attr("id", "earnings-loans")
         .html("Average Annual Earnings - Average Loan Debt");
 
-      var rectover = bars.append("rect")
+      bars.append("rect")
         .style("fill", earncolor)
         .attr("id", function(d,i){return "rectover"+i;})
         .attr("y", 150)
