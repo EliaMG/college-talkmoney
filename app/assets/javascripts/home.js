@@ -20,7 +20,6 @@ $(function() {
       type: "get",
       success: function (data) {
         makePriceChart(data, "price", "Average Net Price");
-        d3.select("#switch-buttons").classed("hidden", false);
         $(".earn-switch").click(function(){
           $(".bar-chart").empty();
           makePriceChart(data, "earn", "Average Annual Earnings")
@@ -40,10 +39,11 @@ $(function() {
 
   function makePriceChart(data, data_type, text_type) {
     if(data.length == 0) {
-      $("#sorry-data").remove();
+      $(".no-data").remove();
       $("#selected-schools")
-      .append("<p id=sorry-data> Sorry, please click start over or add schools.</p>")
+      .append("<p class=no-data> Sorry, please click start over or add schools.</p>")
     } else {
+      d3.select("#switch-buttons").classed("hidden", false);
       var width = 420,
           barHeight = 22,
           height = barHeight * (data.length + 2);

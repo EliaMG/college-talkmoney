@@ -2,24 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.row {
-  margin-top: 20px;
-  padding-left: 10px;
-}
 
 svg {
-  padding-bottom: 20px;
+  padding: 10px;
   display: block;
   width: 75%;
   max-width: 1000px;
   margin: 0 auto;
-}
-
-.fa-info {
-  padding-top: 5px;
-}
-.fa-info:hover {
-  color: #00FF11;
 }
 
 .earn-bar:hover {
@@ -33,7 +22,6 @@ svg {
 .loan-bar:hover {
   fill: #FF1A1A;
 }
-
 
 .bar-chart text {
   fill: #000;

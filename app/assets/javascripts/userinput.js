@@ -40,7 +40,7 @@ app.Schools.prototype = {
 
   _select: function(e, ui) {
     // $(ui.item.name).appendTo("#selected-schools").show();
-    $("#sorry-data").remove();
+    $(".no-data").remove();
 
     $("#selected-schools")
     .append("<li class=popper>" + ui.item.name + "</li>");

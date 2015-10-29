@@ -26,5 +26,16 @@ body {
 // #E1DFD6 is paper
 .page-header {
   background: image-url("paper.png");
+  margin-top: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
   // background-color: rgba(89, 221, 98, .8);
+}
+
+.fa-info {
+  padding-top: 15px;
+  padding-left: 25px;
+}
+.fa-info:hover {
+  color: #00FF11;
 }

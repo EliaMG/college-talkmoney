@@ -19,7 +19,7 @@
   <div class=search-form>
     <%= form_tag(schools_user_input_path, method: :get, role: "user_input") do %>
     <div class="col-md-5 user-selections">
-        <h3> Choose your annual family income level: </h3>
+        <h4> Choose your annual family income level: </h4>
           <input id="low_income" name="inc" type="radio" value="low" />
           <label for="low_income">Low-Income ($0-48k)</label>
         <br>
@@ -35,7 +35,7 @@
         <input name="school-ids" id="school-ids" type="hidden" value="2666,1382,1333,1" />
       </div>
       <div class="col-md-7">
-        <h3> Choose schools to compare: </h3>
+        <h4> Choose schools to compare: </h4>
           <input id="two_year" name="years" type="radio" value="2" />
           <label for="two_year">Two-Year Schools</label>
           <input checked="checked" id="four_year" name="years" type="radio" value="4" />
@@ -47,6 +47,7 @@
           </div>
           <div id="selected-schools">
             <h4>Selected schools:</h4>
+            <p class="no-data"> No schools selected.</p>
           </div>
         </section>
       <%= button_tag "Compare Schools", class: "user-input btn btn-default" %>
