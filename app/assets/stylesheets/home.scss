@@ -22,9 +22,18 @@ svg {
   color: #00FF11;
 }
 
-.bar-chart rect:hover {
+.earn-bar:hover {
   fill: #00FF11;
 }
+
+.price-bar:hover {
+  fill: #0066FF;
+}
+
+.loan-bar:hover {
+  fill: #FF1A1A;
+}
+
 
 .bar-chart text {
   fill: #000;

@@ -22,11 +22,15 @@ $(function() {
         makePriceChart(data, "price", "Average Net Price");
         $(".earn-switch").click(function(){
           $(".bar-chart").empty();
-          makePriceChart(data, "earn", "Average Annual Earnings" )
+          makePriceChart(data, "earn", "Average Annual Earnings")
         });
         $(".loan-switch").click(function(){
           $(".bar-chart").empty();
           makePriceChart(data, "loan", "Average Loan Debt")
+        });
+        $(".price-switch").click(function(){
+          $(".bar-chart").empty();
+          makePriceChart(data, "price", "Average Net Price")
         });
         makeCylinderChart(data);
       }
@@ -73,7 +77,22 @@ $(function() {
         .attr("height", yScale.rangeBand() - 3)
         .attr("width", 0)
         .attr("fill", function(d, i) {
-          return "rgb(25, " + (100 + i * 30) + ", 35)";
+          if (data_type == "price") {
+            return "rgb(15, 25, " + (65 + i * 30) + ")";
+          } else if (data_type == "loan") {
+            return "rgb(" + (100 + i * 30) + ", 5, 5)";
+          } else {
+            return "rgb(25, " + (100 + i * 30) + ", 35)";
+          }
+        })
+        .attr("class", function() {
+          if (data_type == "price") {
+            return "price-bar";
+          } else if (data_type == "loan") {
+            return "loan-bar";
+          } else {
+            return "earn-bar";
+          }
         })
         // getscreenCTM tooltip placement help from: http://stackoverflow.com/questions/16256454/d3-js-position-tooltips-using-element-position-not-mouse-position
         //toLocaleString returns the number with commas
