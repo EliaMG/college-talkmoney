@@ -20,6 +20,7 @@ $(function() {
       type: "get",
       success: function (data) {
         makePriceChart(data, "price", "Average Net Price");
+        d3.select("#switch-buttons").classed("hidden", false);
         $(".earn-switch").click(function(){
           $(".bar-chart").empty();
           makePriceChart(data, "earn", "Average Annual Earnings")
