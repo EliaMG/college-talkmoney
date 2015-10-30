@@ -324,8 +324,8 @@ $(function() {
 
         d3.select("#tooltip")
           .classed("hidden", false)
-          .style("left", (max_wide + 100) + "px")
-          .style("top", (window.pageYOffset + matrix.f +25) + "px")
+          .style("left", (max_wide + 240/data.length + 30) + "px")
+          .style("top", (window.pageYOffset + matrix.f + 50) + "px")
           .select("#value")
           .html("<strong>" + d.name + "</strong><br><br/>" +
                 "Average Earnings: $" + d.earn.toLocaleString() +
