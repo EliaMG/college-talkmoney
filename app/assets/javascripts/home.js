@@ -201,20 +201,34 @@ $(function() {
         .style("fill", decolor)
         .attr("id", function(d,i){return "rect"+i;})
         .attr("x", function(d,i){ return xScale(i);})
-        .attr("y", 10)
+        .attr("y", 15)
         .attr("width", xScale.rangeBand())
         .attr("height", 140)
         .attr("stroke","black")
         .attr("stroke-width",1);
+
+      bars.append("rect")
+        .style("fill", earncolor)
+        .attr("id", function(d,i){return "rectover"+i;})
+        .attr("y", 155)
+        .attr("x", function(d,i){ return xScale(i) +0.5;})
+        .attr("width", xScale.rangeBand()-1)
+        .attr("height", 0);
 
       bars.append("text")
         .text(0)
         .attr("text-anchor", "middle")
         .attr("id", function(d,i){return "dollar"+i;})
         .attr("x", function(d,i){ return +$("#rect" +i).attr("x") +10})
-        .attr("y", 7.5)
+        .attr("y", 12.5)
         .attr("font-size", "7px")
         .classed("hidden", true);
+
+      bars.append("text")
+        .text(function(d) {return d.name;})
+        .attr("transform", function (d, i) { return "rotate(-90) translate(" + (-110) +", " + (+$("#rect" +i).attr("x") +15) + ")" })
+        .attr("text-anchor", "middle")
+        .attr("font-size", "6px");
 
       svg.append("text")      // text label for the x axis
         .attr("transform", "translate(" + (10) + " ," + (0) + ")")
@@ -229,13 +243,6 @@ $(function() {
           .classed("hidden", true)
           .html("Average Annual Earnings");
 
-      bars.append("rect")
-        .style("fill", earncolor)
-        .attr("id", function(d,i){return "rectover"+i;})
-        .attr("y", 150)
-        .attr("x", function(d,i){ return xScale(i) +0.5;})
-        .attr("width", xScale.rangeBand()-1)
-        .attr("height", 0);
 
         setTimeout(function(){ allUp(); }, 800);
         setTimeout(function(){ allDown(); }, 2000);
@@ -244,7 +251,7 @@ $(function() {
       var earnUp = function(d,i) {
         d3.select("#rectover"+i).transition().duration('800')
           .attr("height", function(d) { return yScale(d.earn); })
-          .attr("y", function(d) { return 150 - yScale(d.earn); })
+          .attr("y", function(d) { return 155 - yScale(d.earn); })
           .style("fill", earncolor);
       }
 
@@ -289,7 +296,7 @@ $(function() {
       var loanDown = function(d,i) {
         d3.select("#rectover"+i).transition().duration('800')
           .attr("height", function(d) { return yScale(d.earn-d.loan); })
-          .attr("y", function(d) { return 150 - yScale(d.earn-d.loan); })
+          .attr("y", function(d) { return 155 - yScale(d.earn-d.loan); })
           .style("fill", loancolor);
       }
 
