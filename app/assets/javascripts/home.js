@@ -235,18 +235,18 @@ $(function() {
         .attr("transform", "translate(" + (10) + " ," + (0) + ")")
         .style("text-anchor", "start")
         .attr("id", "earnings-loans")
-        .html("Average Annual Earnings - Average Loan Debt");
+        .text('Average Annual Earnings - Average Loan Debt');
 
       var earnonly = svg.append("text")      // text label for the x axis
           .attr("transform", "translate(" + (10) + " ," + (0) + ")")
           .style("text-anchor", "start")
           .attr("id", "earnings")
           .classed("hidden", true)
-          .html("Average Annual Earnings");
+          .text('Average Annual Earnings');
 
-
-        setTimeout(function(){ allUp(); }, 800);
-        setTimeout(function(){ allDown(); }, 2000);
+      //bars start by going up and down when the chart loads
+      setTimeout(function(){ allUp(); }, 800);
+      setTimeout(function(){ allDown(); }, 2000);
 
       //makes bars go up and turn green in line with earnings
       var earnUp = function(d,i) {

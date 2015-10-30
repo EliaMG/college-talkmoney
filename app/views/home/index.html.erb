@@ -29,7 +29,7 @@
           <input checked="checked" id="avg_income" name="inc" type="radio" value="avg" />
           <label for="avg_income">Don't know/Prefer not to answer</label>
         <br>
-        <input name="school-ids" id="school-ids" type="hidden" value="2666,1382,1333,1" />
+        <input name="school-ids" id="school-ids" type="hidden" value="" />
       </div>
       <div class="col-md-7">
         <h4> Choose schools to compare: </h4>
@@ -55,6 +55,7 @@
 <hr>
 <div class="row">
   <div id="switch-buttons" class="hidden">
+    <p> Hover over bars to interact with the data!</p>
     <%= button_tag "Net Price", class: "price-switch btn btn-primary" %>
     <%= button_tag "Earnings", class: "earn-switch btn btn-success" %>
     <%= button_tag "Loans", class: "loan-switch btn btn-danger" %>
