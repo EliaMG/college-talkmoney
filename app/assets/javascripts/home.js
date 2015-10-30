@@ -22,15 +22,18 @@ $(function() {
         makePriceChart(data, "price", "Average Net Price");
         $(".earn-switch").click(function(){
           $(".bar-chart").empty();
-          makePriceChart(data, "earn", "Average Annual Earnings")
+          makePriceChart(data, "earn", "Average Annual Earnings");
+          $(".no-data").remove();
         });
         $(".loan-switch").click(function(){
           $(".bar-chart").empty();
-          makePriceChart(data, "loan", "Average Loan Debt")
+          makePriceChart(data, "loan", "Average Loan Debt");
+            $(".no-data").remove();
         });
         $(".price-switch").click(function(){
           $(".bar-chart").empty();
-          makePriceChart(data, "price", "Average Net Price")
+          makePriceChart(data, "price", "Average Net Price");
+            $(".no-data").remove();
         });
         makeCylinderChart(data);
       }
