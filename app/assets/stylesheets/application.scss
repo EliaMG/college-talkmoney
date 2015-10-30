@@ -22,8 +22,8 @@ body {
   background-color:rgb(222, 220, 211);
   font-family: 'Ubuntu', sans-serif;
 }
-// #E9DDC6 is school background image color
-// #E1DFD6 is paper
+
+// #E1DFD6 is paper background hex equivalent
 .page-header {
   background: image-url("paper.png");
   margin-top: -10px;
@@ -35,6 +35,7 @@ body {
   padding-top: 20px;
   padding-left: 25px;
 }
+
 .fa-info:hover {
   color: #00FF11;
 }
