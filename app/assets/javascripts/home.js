@@ -44,6 +44,7 @@ $(function() {
       .append("<p class=no-data> Sorry, please click start over or add schools.</p>")
     } else {
       d3.select("#switch-buttons").classed("hidden", false);
+      $('html,body').animate({scrollTop: $("#switch-buttons").offset().top}, 'slow');
       var width = 420,
           barHeight = 22,
           height = barHeight * (data.length + 2);
@@ -169,7 +170,7 @@ $(function() {
       //makes the initial fill color the same as the background
       var decolor = d3.rgb(222, 220, 211),
           earncolor = d3.rgb("#4DBD33"),
-          loancolor = d3.rgb("#003F87");
+          loancolor = d3.rgb("#2E6891");
 
       var height = 150,
           rectWidth = 30,
@@ -226,8 +227,8 @@ $(function() {
 
       bars.append("text")
         .text(function(d) {return d.name;})
-        .attr("transform", function (d, i) { return "rotate(-90) translate(" + (-110) +", " + (+$("#rect" +i).attr("x") +15) + ")" })
-        .attr("text-anchor", "middle")
+        .attr("transform", function (d, i) { return "rotate(-90) translate(" + (-150) +", " + (+$("#rect" +i).attr("x") +15) + ")" })
+        .attr("text-anchor", "start")
         .attr("font-size", "6px");
 
       svg.append("text")      // text label for the x axis
