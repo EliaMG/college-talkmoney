@@ -2,7 +2,8 @@ class School < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   def self.school_search(term, year)
-    where('LOWER(name) LIKE :term AND years= :year', term: "%#{term.downcase}%", year: year)
+    where('LOWER(name) LIKE :term AND years= :year',
+           term: "%#{term.downcase}%", year: year)
   end
 
   def self.data_prep(inc, schools)

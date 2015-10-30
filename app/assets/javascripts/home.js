@@ -8,10 +8,6 @@ $(function() {
     dataCall(event, url);
   });
 
-  $(".start-over").click(function() {
-    location.reload();
-  });
-
   function dataCall(event, url) {
     event.preventDefault();
     $(".bar-chart").empty();
@@ -39,6 +35,10 @@ $(function() {
       }
     });
   };
+
+  $(".start-over").click(function() {
+    location.reload();
+  });
 
   function makePriceChart(data, data_type, text_type) {
     if(data.length == 0) {
@@ -230,7 +230,9 @@ $(function() {
 
       bars.append("text")
         .text(function(d) {return d.name;})
-        .attr("transform", function (d, i) { return "rotate(-90) translate(" + (-150) +", " + (+$("#rect" +i).attr("x") +15) + ")" })
+        .attr("transform", function (d, i) {
+          return "rotate(-90) translate(" + (-150) +", " + (+$("#rect" +i).attr("x") +15) + ")"
+        })
         .attr("text-anchor", "start")
         .attr("font-size", "6px");
 
@@ -292,7 +294,9 @@ $(function() {
           var oldVal = +this.textContent.replace(/[\$,]/g, "");
           var dollar = "$";
           var interp = d3.interpolateRound(oldVal, newVal);
-          return function(t) { this.textContent = dollar + interp(t).toLocaleString(); };
+          return function(t) {
+            this.textContent = dollar + interp(t).toLocaleString();
+          };
         }
       }
 
