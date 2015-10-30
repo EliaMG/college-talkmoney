@@ -64,7 +64,7 @@ $(function() {
 
       var chart = d3.select(".bar-chart")
         .attr({"width": "70%", "height": "70%"})
-        .attr("viewBox", "0 0 " + (width + 100) + " " + (height + 50) )
+        .attr("viewBox", "0 0 " + (width + 100) + " " + (height + 30) )
         .attr("preserveAspectRatio", "xMidYMid meet");
 
       chart.selectAll("rect")
@@ -169,7 +169,7 @@ $(function() {
       //makes the initial fill color the same as the background
       var decolor = d3.rgb(222, 220, 211),
           earncolor = d3.rgb("#4DBD33"),
-          loancolor = d3.rgb("#FF3333");
+          loancolor = d3.rgb("#003F87");
 
       var height = 150,
           rectWidth = 30,
@@ -187,7 +187,7 @@ $(function() {
 
       var svg= d3.select(".cyl-chart")
         .attr({"width": "80%", "height": "80%"})
-        .attr("viewBox", "0 0 " + (width + 120) + " " + (height + 50) )
+        .attr("viewBox", "0 0 " + (width + 120) + " " + (height + 70) )
         .attr("preserveAspectRatio", "xMidYMid meet");
 
       var container = svg.append("g");
@@ -217,10 +217,17 @@ $(function() {
         .classed("hidden", true);
 
       svg.append("text")      // text label for the x axis
-        .attr("transform", "translate(" + (10) + " ," + (height + 15) + ")")
+        .attr("transform", "translate(" + (10) + " ," + (0) + ")")
         .style("text-anchor", "start")
         .attr("id", "earnings-loans")
         .html("Average Annual Earnings - Average Loan Debt");
+
+      var earnonly = svg.append("text")      // text label for the x axis
+          .attr("transform", "translate(" + (10) + " ," + (0) + ")")
+          .style("text-anchor", "start")
+          .attr("id", "earnings")
+          .classed("hidden", true)
+          .html("Average Annual Earnings");
 
       bars.append("rect")
         .style("fill", earncolor)
@@ -254,6 +261,21 @@ $(function() {
         .tween("text", textTween(d.earn - d.loan));
       }
 
+      var transitionEarn = function() {
+        $("#earnings-loans").fadeOut(400);
+        setTimeout(function(){
+          earnonly.classed("hidden", false);
+          $("#earnings").fadeIn(400);
+        }, 400);
+      }
+
+      var transitionLoan = function() {
+        setTimeout(function(){
+          earnonly.classed("hidden", true);
+          $("#earnings-loans").fadeIn(400);
+        }, 400);
+      }
+
       function textTween(newVal){
         return function() {
           var oldVal = +this.textContent.replace(/[\$,]/g, "");
@@ -272,6 +294,7 @@ $(function() {
       }
 
       var allUp = function() {
+        transitionEarn();
         bars.each(function(d,i) {
           earnUp(d, i);
           tweenUp(d, i);
@@ -279,6 +302,7 @@ $(function() {
       }
 
       var allDown = function() {
+        transitionLoan();
         bars.each(function(d,i) {
           loanDown(d, i);
           tweenDown(d, i);
@@ -293,11 +317,12 @@ $(function() {
         d3.select("#tooltip")
           .classed("hidden", false)
           .style("left", (max_wide + 100) + "px")
-          .style("top", (window.pageYOffset + matrix.f) + "px")
+          .style("top", (window.pageYOffset + matrix.f +25) + "px")
           .select("#value")
-          .html("<strong>" + d.name + "</strong> <br/>" +
+          .html("<strong>" + d.name + "</strong><br><br/>" +
                 "Average Earnings: $" + d.earn.toLocaleString() +
-                "<br/> Average Loan: $" + d.loan.toLocaleString());
+                "- <br/> Average Loan: $" + d.loan.toLocaleString() +
+                "<hr> <em>Difference:</em> $" + (d.earn - d.loan).toLocaleString());
       });
 
       bars.on("mouseleave",function(){

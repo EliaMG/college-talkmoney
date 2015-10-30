@@ -66,6 +66,10 @@ margin: 25px;
   font-weight: bold;
 }
 
+.cyl-chart {
+  padding-top: 30px;
+}
+
 #tooltip {
   position: absolute;
   z-index: 1;
@@ -93,7 +97,12 @@ margin: 25px;
   line-height: 20px;
 }
 
- text#earnings-loans {
+#tooltip hr {
+  border-style: solid;
+  border-color: black;
+}
+
+ text#earnings-loans, text#earnings {
   font-size: .45em;
   font-weight: bold;
 }
