@@ -5,11 +5,8 @@
       <i class="fa fa-info fa-3x" data-toggle="modal" data-target="#aboutModal"></i>
     </div>
     <div class="row">
-      <div class="col-md-1 col-md-offset-1">
-      <%= image_tag("mortarboard.svg", size: "60x60", alt: "Mortarboard", class: "img-responsive") %>
-      </div>
-      <div class="col-md-10">
-        <h1>College Cost Comparator <br/><small> Discover your average cost, debt, and earnings from schools nationwide!</small> </h1>
+      <div class="col-md-10 col-md-offset-2 title-text">
+        <h1><img alt="Mortarboard" src="/assets/mortarboard-b63218e73eb750efed0b7bd95d65da009156a58f415f6fa5498f45ebc84088ad.svg" width="65" height="65">  College Cost Comparator <br/><small> Discover your average cost, debt, and earnings from schools nationwide!</small></h1>
         <%= button_tag "Start Over", class: "start-over btn btn-default" %>
       </div>
     </div>
@@ -32,7 +29,7 @@
           <input checked="checked" id="avg_income" name="inc" type="radio" value="avg" />
           <label for="avg_income">Don't know/Prefer not to answer</label>
         <br>
-        <input name="school-ids" id="school-ids" type="hidden" value="2666,1382,1333,1" />
+        <input name="school-ids" id="school-ids" type="hidden" value="" />
       </div>
       <div class="col-md-7">
         <h4> Choose schools to compare: </h4>
@@ -50,7 +47,7 @@
             <p class="no-data"> No schools selected.</p>
           </div>
         </section>
-      <%= button_tag "Compare Schools", class: "user-input btn btn-default" %>
+      <%= button_tag "Compare Schools", class: "user-input btn btn-default btn-lg" %>
       </div>
     <% end %>
   </div>
@@ -58,9 +55,9 @@
 <hr>
 <div class="row">
   <div id="switch-buttons" class="hidden">
-    <%= button_tag "Net Price", class: "price-switch btn btn-default" %>
-    <%= button_tag "Earnings", class: "earn-switch btn btn-default" %>
-    <%= button_tag "Loans", class: "loan-switch btn btn-default" %>
+    <%= button_tag "Net Price", class: "price-switch btn btn-primary" %>
+    <%= button_tag "Earnings", class: "earn-switch btn btn-success" %>
+    <%= button_tag "Loans", class: "loan-switch btn btn-danger" %>
     <i class='fa fa-sort fa-2x' data-toggle="tooltip" data-placement="right" title="Click to sort"></i>
   </div>
   <svg class="bar-chart col-xs-12"></svg>
