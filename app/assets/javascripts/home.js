@@ -230,6 +230,9 @@ $(function() {
         .attr("width", xScale.rangeBand()-1)
         .attr("height", 0);
 
+        setTimeout(function(){ allUp(); }, 800);
+        setTimeout(function(){ allDown(); }, 2000);
+
       //makes bars go up and turn green in line with earnings
       var earnUp = function(d,i) {
         d3.select("#rectover"+i).transition().duration('800')
@@ -268,6 +271,20 @@ $(function() {
           .style("fill", loancolor);
       }
 
+      var allUp = function() {
+        bars.each(function(d,i) {
+          earnUp(d, i);
+          tweenUp(d, i);
+        });
+      }
+
+      var allDown = function() {
+        bars.each(function(d,i) {
+          loanDown(d, i);
+          tweenDown(d, i);
+        });
+      }
+
       bars.on("mouseenter",function(d){
         var max_wide = $("#rect" + (data.length - 1)).offset().left;
         var matrix = this.getScreenCTM()
@@ -283,36 +300,24 @@ $(function() {
                 "<br/> Average Loan: $" + d.loan.toLocaleString());
       });
 
-      container.on("mouseenter",function(){
-        bars.each(function(d,i) {
-          earnUp(d, i);
-          tweenUp(d, i);
-        });
-      });
-
       bars.on("mouseleave",function(){
         d3.select("#tooltip").classed("hidden", true);
       });
 
+      container.on("mouseenter",function(){
+        allUp();
+      });
+
       container.on("mouseleave",function(){
-        bars.each(function(d,i) {
-          loanDown(d, i);
-          tweenDown(d, i);
-        });
+        allDown();
       });
 
       container.on("mousedown",function(){
-        bars.each(function(d,i) {
-          earnUp(d, i);
-          tweenUp(d, i);
-        });
+        allUp();
       });
 
       container.on("mouseup",function(){
-        bars.each(function(d,i) {
-          loanDown(d, i);
-          tweenDown(d, i);
-        });
+        allDown();
       });
     }
   };
