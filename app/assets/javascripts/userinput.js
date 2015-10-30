@@ -45,11 +45,6 @@ app.Schools.prototype = {
     $("#selected-schools")
     .append("<li class=popper>" + ui.item.name + "</li>");
 
-
-    // .addClass('popper');
-    // .append("<br>");
-    // .removeClass('popper');
-
     //adds a comma separated list of ids to the hidden input
     var results = $('#school-ids'),
         inputs = ui.item.id,

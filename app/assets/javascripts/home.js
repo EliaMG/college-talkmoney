@@ -190,7 +190,9 @@ $(function() {
         .attr("viewBox", "0 0 " + (width + 120) + " " + (height + 50) )
         .attr("preserveAspectRatio", "xMidYMid meet");
 
-      var bars = svg.selectAll("g")
+      var container = svg.append("g");
+
+      var bars = container.selectAll("g")
         .data(data)
         .enter().append("g")
         .attr("class", "bars");
@@ -251,7 +253,7 @@ $(function() {
 
       function textTween(newVal){
         return function() {
-          var oldVal = 0;
+          var oldVal = +this.textContent.replace(/[\$,]/g, "");
           var dollar = "$";
           var interp = d3.interpolateRound(oldVal, newVal);
           return function(t) { this.textContent = dollar + interp(t).toLocaleString(); };
@@ -266,9 +268,7 @@ $(function() {
           .style("fill", loancolor);
       }
 
-      bars.on("mouseenter",function(d,i){
-        earnUp(d, i);
-        tweenUp(d, i);
+      bars.on("mouseenter",function(d){
         var max_wide = $("#rect" + (data.length - 1)).offset().left;
         var matrix = this.getScreenCTM()
         .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
@@ -283,20 +283,36 @@ $(function() {
                 "<br/> Average Loan: $" + d.loan.toLocaleString());
       });
 
-      bars.on("mouseleave",function(d,i){
-        loanDown(d, i);
-        tweenDown(d, i);
+      container.on("mouseenter",function(){
+        bars.each(function(d,i) {
+          earnUp(d, i);
+          tweenUp(d, i);
+        });
+      });
+
+      bars.on("mouseleave",function(){
         d3.select("#tooltip").classed("hidden", true);
       });
 
-      bars.on("mousedown",function(d,i){
-        earnUp(d, i);
-        tweenUp(d, i);
+      container.on("mouseleave",function(){
+        bars.each(function(d,i) {
+          loanDown(d, i);
+          tweenDown(d, i);
+        });
       });
 
-      bars.on("mouseup",function(d,i){
-        loanDown(d, i);
-        tweenDown(d, i);
+      container.on("mousedown",function(){
+        bars.each(function(d,i) {
+          earnUp(d, i);
+          tweenUp(d, i);
+        });
+      });
+
+      container.on("mouseup",function(){
+        bars.each(function(d,i) {
+          loanDown(d, i);
+          tweenDown(d, i);
+        });
       });
     }
   };
