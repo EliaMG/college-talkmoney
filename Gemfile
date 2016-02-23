@@ -8,7 +8,8 @@ gem 'd3-rails'
 gem 'jquery-ui-rails'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'rails-assets-tether', '>= 1.1.0'
 gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
