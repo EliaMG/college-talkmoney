@@ -41,15 +41,21 @@ app.Schools.prototype = {
   _select: function(e, ui) {
     // $(ui.item.name).appendTo("#selected-schools").show();
     $(".no-data").remove();
+    var school = $("<li></li>");
+    school.text(ui.item.name);
+    school.addClass("popper");
+    school.data("id", ui.item.id);
+    school.wrapInner('<a href="http://' + ui.item.url + '" target=_blank></a>');
+    //implement to add deletability
+    // crossout = $("<i class='fa fa-times'></i>");
+    // school.prepend(crossout);
 
-    $("#selected-schools")
-    .append("<li class=popper>" + ui.item.name + "</li>");
+    $("#selected-schools").append(school);
 
     //adds a comma separated list of ids to the hidden input
     var results = $('#school-ids'),
         inputs = ui.item.id,
         stringAppend = results.val().length > 0 ? results.val() + "," : "";
         results .val( stringAppend + inputs );
-        counter += 1;
   }
 };

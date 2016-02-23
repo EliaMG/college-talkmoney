@@ -5,7 +5,7 @@ class SchoolsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @schools.select('id', 'name', 'state') }
+      format.json { render json: @schools.select('id', 'name', 'state', 'url') }
     end
   end
 
