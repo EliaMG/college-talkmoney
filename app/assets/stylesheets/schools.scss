@@ -21,11 +21,11 @@ label {
 
 .search-form {
   margin-left: 15px;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .search-form h4 {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 .no-data {
@@ -99,4 +99,10 @@ div#selected-schools h4{
 
 li.popper {
   animation: pop .5s ease-in;
+  list-style-type: none;
 }
+
+//not implemented yet
+// i.fa-times::before {
+//   padding-right: 10px;
+// }

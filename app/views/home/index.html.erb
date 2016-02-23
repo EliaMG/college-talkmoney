@@ -7,12 +7,12 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-2 title-text">
         <h1><img alt="Mortarboard" src="/assets/mortarboard-b63218e73eb750efed0b7bd95d65da009156a58f415f6fa5498f45ebc84088ad.svg" width="65" height="65">  College Cost Comparator <br/><small> Discover your average cost, debt, and earnings from schools nationwide!</small></h1>
-        <%= button_tag "Start Over", class: "start-over btn btn-default" %>
+        <%= button_tag "Start Over", class: "btn btn-secondary start-over" %>
       </div>
     </div>
   </div>
 
-<div class="row">
+<div class="row page-content">
   <div class=search-form>
     <%= form_tag(schools_user_input_path, method: :get, role: "user_input") do %>
     <div class="col-md-5 user-selections">
@@ -47,7 +47,7 @@
             <p class="no-data"> No schools selected.</p>
           </div>
         </section>
-      <%= button_tag "Compare Schools", class: "user-input btn btn-default btn-lg" %>
+      <%= button_tag "Compare Schools", class: "btn btn-secondary btn-lg user-input" %>
       </div>
     <% end %>
   </div>
@@ -55,7 +55,7 @@
 <hr>
 
 <div class="row">
-  <div id="switch-buttons" class="hidden">
+  <div id="switch-buttons" class="hidden-xs-up">
     <p> Hover over bars to interact with the data!</p>
     <%= button_tag "Net Price", class: "price-switch btn btn-primary" %>
     <%= button_tag "Earnings", class: "earn-switch btn btn-success" %>
@@ -65,7 +65,7 @@
   <svg class="bar-chart col-xs-12"></svg>
 </div>
 
-<div id="tooltip" class="hidden">
+<div id="tooltip" class="hidden-xs-up">
   <p><span id="value"></span></p>
 </div>
 <div class="cylinder-chart">
@@ -84,7 +84,7 @@
         </div>
         <div class="modal-body">
           <h3>Developer</h3>
-          <p>This is <a target="_blank" href="http://eliamg.com/">Elia Grenier's</a> capstone project for <a target="_blank" href="https://github.com/EliaMG">Ada Developer's Academy</a> in Seattle, WA.</p>
+          <p>This is <a target="_blank" href="http://eliamg.com/">Elia Grenier's</a> capstone project for <a target="_blank" href="http://adadevelopersacademy.org">Ada Developer's Academy</a> in Seattle, WA.</p>
           <h3>Dataset</h3>
           <p>The data used in this project is provided by the most recent <a target="_blank" href="https://collegescorecard.ed.gov">federal College Scorecard</a> dataset. Schools listed were filtered to only include two and four year undergraduate serving schools (per Carnegie classification) with net price, loan and earnings data available.</p>
           <h3>Definitions</h3>

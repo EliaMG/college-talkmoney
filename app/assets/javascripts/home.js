@@ -46,7 +46,7 @@ $(function() {
       $("#selected-schools")
       .append("<p class=no-data> Sorry, please click start over or add schools.</p>")
     } else {
-      d3.select("#switch-buttons").classed("hidden", false);
+      d3.select("#switch-buttons").classed("hidden-xs-up", false);
       $('html,body').animate({scrollTop: $("#switch-buttons").offset().top}, 'slow');
       var width = 420,
           barHeight = 22,
@@ -106,7 +106,7 @@ $(function() {
         .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
 
         d3.select("#tooltip")
-          .classed("hidden", false)
+          .classed("hidden-xs-up", false)
           .style("left", (window.pageXOffset + matrix.e + 30) + "px")
           .style("top", (window.pageYOffset + matrix.f - 30) + "px")
           .select("#value")
@@ -116,7 +116,7 @@ $(function() {
         })
         .on("mouseout", function() {
           //Hide the tooltip
-          d3.select("#tooltip").classed("hidden", true);
+          d3.select("#tooltip").classed("hidden-xs-up", true);
         })
         .transition()
           .delay(function(d, i) { return i * 100; })
@@ -226,7 +226,7 @@ $(function() {
         .attr("x", function(d,i){ return +$("#rect" +i).attr("x") +10})
         .attr("y", 12.5)
         .attr("font-size", "7px")
-        .classed("hidden", true);
+        .classed("hidden-xs-up", true);
 
       bars.append("text")
         .text(function(d) {return d.name;})
@@ -246,7 +246,7 @@ $(function() {
           .attr("transform", "translate(" + (10) + " ," + (0) + ")")
           .style("text-anchor", "start")
           .attr("id", "earnings")
-          .classed("hidden", true)
+          .classed("hidden-xs-up", true)
           .text('Average Annual Earnings');
 
       //bars start by going up and down when the chart loads
@@ -262,7 +262,7 @@ $(function() {
       }
 
       var tweenUp = function(d,i) {
-        d3.select("#dollar"+i).classed("hidden", false)
+        d3.select("#dollar"+i).classed("hidden-xs-up", false)
         .transition()
         .duration('800')
         .tween("text", textTween(d.earn));
@@ -277,14 +277,14 @@ $(function() {
       var transitionEarn = function() {
         $("#earnings-loans").fadeOut(400);
         setTimeout(function(){
-          earnonly.classed("hidden", false);
+          earnonly.classed("hidden-xs-up", false);
           $("#earnings").fadeIn(400);
         }, 400);
       }
 
       var transitionLoan = function() {
         setTimeout(function(){
-          earnonly.classed("hidden", true);
+          earnonly.classed("hidden-xs-up", true);
           $("#earnings-loans").fadeIn(400);
         }, 400);
       }
@@ -330,7 +330,7 @@ $(function() {
         .translate(+ this.getAttribute("x"), + this.getAttribute("y"))
 
         d3.select("#tooltip")
-          .classed("hidden", false)
+          .classed("hidden-xs-up", false)
           .style("left", (max_wide + 240/data.length + 30) + "px")
           .style("top", (window.pageYOffset + matrix.f + 50) + "px")
           .select("#value")
@@ -341,7 +341,7 @@ $(function() {
       });
 
       bars.on("mouseleave",function(){
-        d3.select("#tooltip").classed("hidden", true);
+        d3.select("#tooltip").classed("hidden-xs-up", true);
       });
 
       container.on("mouseenter",function(){

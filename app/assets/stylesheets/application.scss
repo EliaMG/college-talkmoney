@@ -15,7 +15,6 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap-sprockets";
  @import "bootstrap";
 
 body {
@@ -29,6 +28,11 @@ body {
   margin-top: -10px;
   margin-left: -10px;
   margin-right: -10px;
+  padding-bottom: 24px;
+}
+
+.page-content {
+  padding-top: 24px;
 }
 
 .fa-info {
